@@ -11,21 +11,13 @@ Entity partA is
 end entity partA;
 
 architecture a_partA of partA is
-    component  my_nadder is
-        generic(n:integer :=16);
-          port( aa,bb :in std_logic_vector(n-1 downto 0);
-                c_cin:in std_logic;  
-                ff   :out std_logic_vector(n-1 downto 0);
-                c_cout:out std_logic);
-      end component;
-
       signal temp1   :std_logic_vector(n-1 downto 0);
       signal temp2   :std_logic_vector(n-1 downto 0);
       signal output1 :std_logic_vector(n-1 downto 0);
       signal carryIN :std_logic;
       signal carryOUT:std_logic;
     begin
-        u0:my_nadder generic map (n) port map ( temp1 , temp2 , carryIN , output1 , carryOUT );
+        u0:entity work.my_nadder generic map (n) port map ( temp1 , temp2 , carryIN , output1 , carryOUT );
         process(A,B,S,Cin)
             begin
                 If(S="0000") then
