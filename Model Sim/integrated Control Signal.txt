@@ -1,0 +1,238 @@
+vsim -gui work.ALU
+add wave -position insertpoint sim:/ALU/*
+
+# part A Simulation
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 0 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 1 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 2 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 3 0
+run
+
+
+# when carry = 1
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 0 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 1 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 2 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 3 0
+run
+
+
+
+
+# part B Simulation
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 4 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 5 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 6 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 7 0
+run
+
+
+# when carry = 1
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 4 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 5 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 6 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 7 0
+run
+
+
+
+# part C Simulation
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 8 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 9 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector A 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector B 0
+run
+
+
+# when carry = 1
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 8 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector 9 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector A 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector B 0
+run
+
+# part D Simulation
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector C 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector D 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector E 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector F 0
+run
+
+
+# when carry = 1
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector C 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector D 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector E 0
+run
+
+force -freeze sim:/ALU/Inp1 00AA 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector F 0
+run
+
+
+
+
+
+
+force -freeze sim:/ALU/Inp1 F0F0 0
+force -freeze sim:/ALU/Inp2 00BB 0
+force -freeze sim:/ALU/carryIn 1 0
+force -freeze sim:/ALU/selector E 0
+run
+
+
+
+force -freeze sim:/ALU/Inp1 0F0F 0
+force -freeze sim:/ALU/Inp2 000A 0
+force -freeze sim:/ALU/carryIn 0 0
+force -freeze sim:/ALU/selector 6 0
+run

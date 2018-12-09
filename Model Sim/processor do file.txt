@@ -1,0 +1,30 @@
+vsim -gui work.myprocessor
+add wave -position insertpoint sim:/myprocessor/*
+
+
+force -freeze sim:/myprocessor/clkNormal 0 0, 1 {50 ps} -r 100
+
+force -freeze sim:/myprocessor/busC AABB 0
+force -freeze sim:/myprocessor/decoder_src_selector 0 0
+force -freeze sim:/myprocessor/decoder_dist_selector 0 0
+force -freeze sim:/myprocessor/decoder_dist_enable 1 0
+force -freeze sim:/myprocessor/decoder_src_enable 0 0
+force -freeze sim:/myprocessor/rst 0 0
+run
+
+noforce sim:/myprocessor/busC
+force -freeze sim:/myprocessor/distBus 1 0
+force -freeze sim:/myprocessor/decoder_src_selector 0 0
+force -freeze sim:/myprocessor/decoder_dist_selector 0 0
+force -freeze sim:/myprocessor/decoder_dist_enable 0 0
+force -freeze sim:/myprocessor/decoder_src_enable 1 0
+force -freeze sim:/myprocessor/rst 0 0
+run
+
+force -freeze sim:/myprocessor/distBus 2 0
+force -freeze sim:/myprocessor/decoder_src_selector 0 0
+force -freeze sim:/myprocessor/decoder_dist_selector 0 0
+force -freeze sim:/myprocessor/decoder_dist_enable 0 0
+force -freeze sim:/myprocessor/decoder_src_enable 1 0
+force -freeze sim:/myprocessor/rst 0 0
+run
