@@ -7,7 +7,7 @@ Entity myProcessor is
            decoder_srcA_enable   , decoder_srcB_enable   , decoder_dist_enable   , aluCarryIn  , clkRam , clkNormal , writeMem , readMem : in std_logic;
            decoder_srcA_selector , decoder_srcB_selector , decoder_dist_selector , aluSelector : in std_logic_vector(3 downto 0);
            busA , busB , busC : inout std_logic_vector(n-1 downto 0);
-           rst : in std_logic_vector(9 downto 0)   -- 16 registers
+           rst : in std_logic_vector(15 downto 0)   -- 16 registers
         );
 End myProcessor;
 
