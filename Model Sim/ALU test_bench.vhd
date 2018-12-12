@@ -23,8 +23,8 @@ Architecture a_aluTestBench of aluTestBench is
     Begin
     Process
       Begin
-          -- test for partB partC partD
-        	for i in inputCasesA'range Loop
+
+          for i in inputCasesA'range Loop
             Inp1 <= inputCasesA(i);
     				Inp2 <= inputCasesB(i);
             carryIn <= carryInCases(i);
@@ -33,8 +33,6 @@ Architecture a_aluTestBench of aluTestBench is
 				    assert(res = outputcases(i))      report  ("error in Result")    severity error;
             assert(c_cout = carryoutcases(i)) report  ("Error in Carry out") severity error;
     			end loop;
-
-
 
           wait;
     End Process;
