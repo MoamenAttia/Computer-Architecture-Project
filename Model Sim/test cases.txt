@@ -1,0 +1,125 @@
+Add Ro , R0
+Add Ro , R1
+Add Ro , R2
+Add R0 , R3
+Add R0 , R4
+Add R0 , R5
+Add R0 , R6
+Add R0 , R7
+Add R0 , MDRout
+
+Sub Ro , R1
+Sub Ro , R2
+Sub Ro , R3
+Sub Ro , R4
+Sub Ro , R5
+Sub Ro , R6
+Sub Ro , R7
+Sub Ro , MDRout
+
+And Ro , R1
+And Ro , R2
+And R0 , R3
+And R0 , R4
+And R0 , R5
+And R0 , R6
+And R0 , R7
+And R0 , MDRout
+
+OR Ro , R1
+OR Ro , R2
+OR R0 , R3
+OR R0 , R4
+OR R0 , R5
+OR R0 , R6
+OR R0 , R7
+OR R0 , MDRout
+
+XOR Ro , R1
+XOR Ro , R2
+XOR Ro , R3
+XOR Ro , R4
+XOR Ro , R5
+XOR Ro , R6
+XOR Ro , R7
+XOR Ro , MDRout
+
+Not R0
+Not R1
+Not R2
+Not R3
+Not R4
+Not R5
+Not R6
+Not R7
+Not MDRout
+
+Rotate left Ro
+Rotate left R1
+Rotate left R2
+Rotate left R3
+Rotate left R4
+Rotate left R5
+Rotate left R6
+Rotate left R7
+Rotate left MDRout
+
+Rotate right Ro
+Rotate right R1
+Rotate right R2
+Rotate right R3
+Rotate right R4
+Rotate right R5
+Rotate right R6
+Rotate right R7
+Rotate right MDRout
+
+Logic Shift right Ro
+Logic Shift right R1
+Logic Shift right R2
+Logic Shift right R3
+Logic Shift right R4
+Logic Shift right R5
+Logic Shift right R6
+Logic Shift right R7
+Logic Shift right MDRout
+
+Logic shift left Ro
+Logic shift left R1
+Logic shift left R2
+Logic shift left R3
+Logic shift left R4
+Logic shift left R5
+Logic shift left R6
+Logic shift left R7
+Logic shift left MDRout
+
+Rotate right Ro with Carry
+Rotate right R1 with Carry
+Rotate right R2 with Carry
+Rotate right R3 with Carry
+Rotate right R4 with Carry
+Rotate right R5 with Carry
+Rotate right R6 with Carry
+Rotate right R7 with Carry
+Rotate right MDRout with Carry
+
+Arithmetic shift right Ro
+Arithmetic shift right R1
+Arithmetic shift right R2
+Arithmetic shift right R3
+Arithmetic shift right R4
+Arithmetic shift right R5
+Arithmetic shift right R6
+Arithmetic shift right R7
+Arithmetic shift right MDRout
+
+Rotate left Ro with Carry
+Rotate left R1 with Carry
+Rotate left R2 with Carry
+Rotate left R3 with Carry
+Rotate left R4 with Carry
+Rotate left R5 with Carry
+Rotate left R6 with Carry
+Rotate left R7 with Carry
+Rotate left MDRout with Carry
