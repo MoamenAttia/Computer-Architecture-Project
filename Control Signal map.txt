@@ -1,0 +1,31 @@
+----------------- ADD @(Rx)+ , Ro --------------------
+
+Fetch Source Auto Increment Indirect
+T1 : RXoutA , Transfer A , MARin , Read
+T2 : RxoutA , Inc A , RXin
+T3 : WMFC , MDRoutA , Transfer A , MARin , Read
+T4 : WMFC , MDRoutA , Xin
+
+----------------- MOV Ro , @(Rx)+  --------------------
+
+Fetch Destination Auto Increment Indirect
+T1 : RXoutA , Transfer A , Zin , MARin , Read
+T2 : RxoutA , Inc A , RXin
+T3 : WMFC , MDRoutA , Transfer A , MARin , Read
+T4 : WMFC , MDRoutA , Yin
+
+----------------- MOV @-(Rx) , Ro ---------------------
+
+Fetch Source Auto Decrement Indirect
+T1 : RXoutA , Dec A , RXin
+T2 : RxoutA , Transfer A , MARin , Read
+T3 : WMFC , MDRoutA , Transfer A , MARin , Read
+T4 : WMFC , MDRoutA , Xin
+
+----------------- MOV Ro , @-(Rx) ---------------------
+
+Fetch Destination Auto Decrement Indirect
+T1 : RXoutA , Dec A , RXin
+T2 : RxoutA , Transfer A , Zin , MARin , Read
+T3 : WMFC , MDRoutA , Transfer A , MARin , Read
+T4 : WMFC , MDRoutA , Yin
