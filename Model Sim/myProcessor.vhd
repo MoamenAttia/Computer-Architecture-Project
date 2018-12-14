@@ -12,7 +12,7 @@ Entity myProcessor is
 End myProcessor;
 
 Architecture a_myProcessor of myProcessor is
-    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory : std_logic_vector(n-1 downto 0);
+    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , flagRegOut : std_logic_vector(n-1 downto 0);
     signal readBus , tempCarryOut : std_logic;
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
     begin
@@ -32,6 +32,17 @@ Architecture a_myProcessor of myProcessor is
 
     myMAR : entity work.mar generic map (MarAddressSize) port map ( clkNormal , rst(8) , busC(MarAddressSize-1 downto 0) , MAROut , dist_enable(8) );
     myMDR : entity work.mdr generic map (n) port map ( clkNormal , rst(9) , readBus , readMem , dataMemory , busC , MDROut );
+
+    tempRegX : entity work.nDFF generic map (n) port map ( clkNormal , rst(10) , dist_enable(10) , busC , tempRegXOut );
+    tempRegY : entity work.nDFF generic map (n) port map ( clkNormal , rst(11) , dist_enable(11) , busC , tempRegYOut );
+
+
+
+    PORT( clk , Rst , En , C : IN  std_logic;
+          A , B , C    : IN  std_logic_vector(n-1 DOWNTO 0);
+          q            : OUT std_logic_vector(3 DOWNTO 0));
+
+    myFlagReg  : entity work.flagReg generic map (n) port map ( clkNormal , rst(12) , dist_enable(12) , tempCarryOut , busA , busB , busC , flagRegOut );
 
     myRama : entity work.real_ram generic map( n , ramSize , MarAddressSize  ) port map ( clkRam , writeMem , MAROut , MDROut , dataMemory ) ;
 
@@ -61,6 +72,16 @@ Architecture a_myProcessor of myProcessor is
 
     tri_state_MDR_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(9) , MDROut , busA );
     tri_state_MDR_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(9) , MDROut , busB );
+
+    tri_state_tempRegX_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(10) , tempRegXOut , busA );
+    tri_state_tempRegX_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(10) , tempRegXOut , busB );
+
+    tri_state_tempRegY_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(11) , tempRegYOut , busA );
+    tri_state_tempRegY_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(11) , tempRegYOut , busB );
+
+    tri_state_flagReg_BusA  : entity work.tri_state generic map(n) port map ( srcA_enable(12) , flagRegOut , busA );
+    tri_state_flagReg_BusB  : entity work.tri_state generic map(n) port map ( srcB_enable(12) , flagRegOut , busB );
+
 
     myALU : entity work.ALU generic map( n ) port map( busA , busB , aluSelector , aluCarryIn , busC , tempCarryOut );
 
