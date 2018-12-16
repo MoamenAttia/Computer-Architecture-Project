@@ -1,3 +1,25 @@
+-- Fetch Source Auto Increment (Ro)+
+Ro out A , Transfer A , Marin , Read
+Ro out A , Inc A , Ro in 
+WMFC , MDRout A , Xin
+
+
+-- Fetch Destination Auto Increment (Rx)+
+Rx out A , Transfer A , Zin , Marin , Read
+Ro out A , Inc A , Ro in 
+WMFC , MDRout A , Yin
+
+
+-- Fetch Source Auto Decrement -(Rx)
+Rx out A , Dec A , Rx in
+Rx out A , Transfer A , MARin , Read
+WMFC , MDRout A , Xin
+
+-- Fetch Destination Auto Decrement -(Rx)
+Rx out A , Dec A , Rx in
+Rx out A , Transfer A ,Zin, MARin , Read
+WMFC , MDRout A , Yin
+
 ----------------- ADD @(Rx) , Ro --------------------
 Fetch Source Register Indirect
 T1 : RXoutA , Transfer A , MARin , Read
