@@ -6,8 +6,7 @@ entity mdr is
   generic ( n : integer := 32);
   port( clk , rst , enBus , enMem : in std_logic;
       dataMemory , dataBus        : in std_logic_vector(n-1 downto 0);    
-      q                           : out std_logic_vector(n-1 downto 0)  
-  );
+      q                           : out std_logic_vector(n-1 downto 0));
  end mdr;
 
 Architecture a_mdr of mdr is

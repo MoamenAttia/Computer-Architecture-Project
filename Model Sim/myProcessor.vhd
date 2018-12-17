@@ -12,7 +12,7 @@ Entity myProcessor is
 End myProcessor;
 
 Architecture a_myProcessor of myProcessor is
-    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut ,  flagRegOut , IRout : std_logic_vector(n-1 downto 0);
+    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut ,  flagRegOut , IRout , offsetIROut : std_logic_vector(n-1 downto 0);
     signal readBus , tempCarryOut : std_logic;
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
     begin
@@ -39,7 +39,7 @@ Architecture a_myProcessor of myProcessor is
 
     myFlagReg  : entity work.flagReg generic map (n) port map ( clkNormal , rst(13) , dist_enable(13) , tempCarryOut , busA , busB , busC , flagRegOut );
 
-    IR_Register : entity work.nDFF generic map(n) port map ( clkNormal , rst(14) , dist_enable(14) , busC , IROut );
+    IR_Register : entity work.nDFF generic map(n) port map ( clkNormal , rst(14) , dist_enable(14) , busC , IROut);
 
     myRama : entity work.real_ram generic map( n , ramSize , MarAddressSize  ) port map ( clkRam , writeMem , MAROut , MDROut , dataMemory ) ;
 
@@ -83,12 +83,14 @@ Architecture a_myProcessor of myProcessor is
     tri_state_flagReg_BusA  : entity work.tri_state generic map(n) port map ( srcA_enable(13) , flagRegOut , busA );
     tri_state_flagReg_BusB  : entity work.tri_state generic map(n) port map ( srcB_enable(13) , flagRegOut , busB );
 
-    tri_state_IR_Register_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(14) , IROut , busA );
-    tri_state_IR_Register_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(14) , IROut , busB );
+    tri_state_IR_Register_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(14) , offsetIROut , busA );
+    tri_state_IR_Register_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(14) , offsetIROut , busB );
 
     myALU : entity work.ALU generic map( n ) port map( busA , busB , aluSelector , aluCarryIn , busC , tempCarryOut );
 
     readBus <= '0' when readMem='1' else
     dist_enable(9);
+
+    offsetIROut <= "0000011111111111" and IROut when srcA_enable(14) = '1' or srcB_enable(14) = '1';
 
 End a_myProcessor;

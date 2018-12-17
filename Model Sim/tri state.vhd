@@ -6,8 +6,7 @@ Entity tri_state is
     Port ( 
            tri_enable : in  STD_LOGIC;
            tri_input  : in  STD_LOGIC_VECTOR (n-1 downto 0);
-           tri_output : out STD_LOGIC_VECTOR (n-1 downto 0)
-         );
+           tri_output : out STD_LOGIC_VECTOR (n-1 downto 0));
 End tri_state;
 
 Architecture a_tri_state of tri_state is

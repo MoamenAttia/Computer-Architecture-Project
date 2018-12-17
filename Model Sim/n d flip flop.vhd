@@ -5,8 +5,7 @@ ENTITY nDFF IS
 GENERIC ( n : integer := 32);
   PORT( Clk,Rst,En  : IN  std_logic;
         d           : IN  std_logic_vector(n-1 DOWNTO 0);
-        q           : OUT std_logic_vector(n-1 DOWNTO 0)
-      );
+        q           : OUT std_logic_vector(n-1 DOWNTO 0));
 END nDFF;
 
 architecture a_nDFF of ndff is
