@@ -33,7 +33,7 @@ T4 : MDRout A, Transfer A , Xin
 
 -- Fetch Destination Indexed X(Rx)
 T1 : Pcout A , Transfer A , MARin , Read , WMFC 
-T2 : PCout A , Inc PC , PCin
+T2 : PCout A , IncA , PCin
 T3 : MDRout A , Rdist out B , A+B , MARin , Read , WMFC
 T4 : MDRout A , Transfer A , Yin
 
@@ -76,3 +76,22 @@ T1 : Rdist A , Dec A , Rdist in
 T2 : Rdist A , Transfer A , MARin , Read , WMFC
 T3 : MDRoutA , Transfer A  , MARin , Read , WMFC
 T4 : MDRoutA , Transfer A , Yin
+
+
+----------------- MOV @X(Ro) , R1 ---------------------
+Fetch Source Indexed Indirect
+T1 : Pcout A , Transfer A , MARin , Read
+T2 : WMFC , Pcout A , Inc A , Pcin
+T3 : MDRout A , Rsrc out B , A+B , MARin , Read , WMFC
+T4 : MDRout A, Transfer A , MARin , Read , WMFC
+T5 : MDRout A, Transfer A , Xin
+
+
+
+----------------- MOV Ro , @X(Ro) ---------------------
+Fetch Source Indexed Indirect
+T1 : Pcout A , Transfer A , MARin , Read
+T2 : WMFC , Pcout A , Inc A , Pcin
+T3 : MDRout A , Rdist out B , A+B , MARin , Read , WMFC
+T4 : MDRout A, Transfer A , MARin , Read , WMFC
+T5 : MDRout A, Transfer A , Yin

@@ -31,7 +31,7 @@ architecture a_partA of partA is
                 elsif (S="0010") then
                     temp1<=A;
                     temp2<=not(B);
-                    carryIN<=cin;
+                    carryIN<=not(cin);
                 elsif (S="0011" and cin='0') then
                     temp1<=A;
                     temp2<=(others=>'1');

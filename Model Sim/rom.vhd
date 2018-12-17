@@ -7,11 +7,11 @@ Entity real_rom is
   Port (
         rd          : in std_logic;
         address     : in  std_logic_vector(7 downto 0);
-        dataOut     : out std_logic_vector(23 downto 0));
+        dataOut     : out std_logic_vector(24 downto 0));
 End entity real_rom;
 
 Architecture a_rom of real_rom is
-    type ramType is array(0 to 255) of std_logic_vector(23 downto 0);
+    type ramType is array(0 to 255) of std_logic_vector(24 downto 0);
     signal myROM : ramType;
 begin
     dataOut <= myROM(to_integer(unsigned(address))) when rd = '1' else (others => 'Z');

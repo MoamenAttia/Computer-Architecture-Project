@@ -1,0 +1,178 @@
+# Fetch and Decode
+PcoutA TransferA MARin Read
+PCoutA IncA PCin WMFC
+MDRoutA TransferA IRIN
+
+# Fetch Source Register Mode
+RsrcoutA TransferA Xin
+
+# Fetch Source Auto Increment Mode
+RsrcoutA TransferA Marin Read
+RsrcoutA IncA Rsrcin WMFC
+MDRoutA TransferA Xin
+
+# Fetch Source Auto Decrement Mode
+RsrcoutA DecA Rsrcin
+RsrcoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+# Fetch Source Indexed Mode
+PcoutA TransferA MARin Read
+PcoutA IncA Pcin WMFC
+MDRoutA RsrcoutB ADD MARin Read WMFC
+MDRoutA TransferA Xin
+
+# Fetch Source Register Indirect
+RsrcoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+# Fetch Source Auto Increment Indirect
+RsrcoutA TransferA MARin Read
+RsrcoutA IncA Rsrcin WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+# Fetch Source Auto Decrement Indirect
+RsrcoutA DecA Rdistin
+RsrcoutA TransferA MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+# Fetch Source Indexed Indirect
+PcoutA TransferA MARin Read
+WMFC PcoutA IncA Pcin
+MDRoutA RsrcoutB ADD MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+# Fetch Destination Register Direct Rx
+RdistoutA TransferA Yin
+
+# Fetch Destination Auto Increment (Rx)+
+RdistoutA TransferA Marin Read
+RdistoutA IncA Rdistin WMFC
+MDRoutA TransferA Yin
+
+# Fetch Destination Auto Decrement -(Rx)
+RdistoutA DecA Rdistin
+RdistoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+# Fetch Destination Indexed X(Rx)
+PcoutA TransferA MARin Read
+PCoutA IncA PCin WMFC
+MDRoutA RdistoutB ADD MARin Read WMFC
+MDRoutA TransferA Yin
+
+# Fetch Destination Register Indirect
+RdistoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+# Fetch Destination Auto Increment Indirect
+RdistoutA TransferA MARin Read
+RdistoutA IncA Rdistin WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+# Fetch Destination Auto Decrement Indirect
+RdistoutA DecA Rdistin
+RdistoutA TransferA MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+# Fetch Destination Indexed Indirect
+PcoutA TransferA MARin Read
+WMFC PcoutA IncA Pcin
+MDRoutA RdistoutB ADD MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+# Add Src , Dest  if Dest is Register Mode
+XoutA YoutB ADD RdistIn
+
+# Add Src , Dest  if Dest is Memory
+XoutA YoutB ADD MDRin Write WMFC
+
+# ADDC Src , Dest if Dest is Register Mode
+XoutA YoutB ADDC RdistIn
+
+# ADDC Src , Dest  if Dest is Memory
+XoutA YoutB ADDC MDRin Write WMFC
+
+# SUB Src , Dest if Dest is Register Mode
+XoutA YoutB SUB RdistIn
+
+# SUB Src , Dest if Dest is Memory
+XoutA YoutB SUB MDRin Write WMFC
+
+# SUBC Src , Dest if Dest is Register Mode
+XoutA YoutB SUBC RdistIn
+
+# SUBC Src , Dest if Dest is Memory
+XoutA YoutB SUBC MDRin Write WMFC
+
+# And Src , Dest if Dest is Register
+XoutA YoutB AND RdistIn
+
+# And Src , Dest if Dest is Memory
+XoutA YoutB ADD MDRin Write WMFC
+
+# OR Src , Dest if Dest is Register
+XoutA YoutB OR RdistIn
+
+# OR Src , Dest if Dest is Memory
+XoutA YoutB OR MDRin Write WMFC
+
+# XNOR Src , Dest  if Dest is Register
+XoutA YoutB XNOR RdistIn
+
+# XNOR Src , Dest  if Dest is Memory
+XoutA YoutB XNOR MDRin Write WMFC
+
+# INV Dest if Dest is Register Mode
+YoutA INV RdistIn
+
+# INV Dest if Dest is Memory
+YoutA INV MDRin Write WMFC
+
+# LSL Dest if Dest is Register
+YoutA LSL RdistIn
+
+# LSL Dest if Dest is Memory
+YoutA LSL MDRin Write WMFC
+
+# LSR Dest if Dest is Register
+YoutA LSR RdistIn
+
+# LSR Dest if Dest is Memory
+YoutA LSR MDRin Write WMFC
+
+# ROR Dest if Dest is Register
+YoutA ROR RdistIn
+
+# ROR Dest if Dest is Memory
+YoutA ROR MDRin Write WMFC
+
+# ROL Dest if Dest is Register
+YoutA ROL RdistIn
+
+# ROL Dest if Dest is Memory
+YoutA ROL MDRin Write WMFC
+
+# ASR Dest if Dest is Register
+YoutA ASR RdistIn
+
+# ASR Dest if Dest is Memory
+YoutA ASR MDRin Write WMFC
+
+# RRC Dest if Dest is Register
+YoutA RRC RdistIn
+
+# RRC Dest if Dest is Memory
+YoutA RRC MDRin Write WMFC
+
+# RLC Dest if Dest is Register
+YoutA RLC RdistIn
+
+# RLC Dest if Dest is Memory
+YoutA RLC MDRin Write WMFC

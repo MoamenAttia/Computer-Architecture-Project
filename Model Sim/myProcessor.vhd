@@ -13,8 +13,9 @@ End myProcessor;
 
 Architecture a_myProcessor of myProcessor is
     signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut ,  flagRegOut , IRout , offsetIROut : std_logic_vector(n-1 downto 0);
-    signal readBus , tempCarryOut : std_logic;
+    signal readBus , tempCarryOut , flagRegEnable : std_logic;
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
+    signal controlWord : std_logic_vector(24 downto 0);
     begin
 
     decoder_dist  : entity work.decoder4x16 port map ( decoder_dist_selector , dist_enable , decoder_dist_enable );    -- elly gaylak mn el left
@@ -37,7 +38,7 @@ Architecture a_myProcessor of myProcessor is
     tempRegY : entity work.nDFF generic map (n) port map ( clkNormal , rst(11) , dist_enable(11) , busC , tempRegYOut );
     tempRegZ : entity work.nDFF generic map (n) port map ( clkNormal , rst(12) , dist_enable(12) , busC , tempRegZOut );
 
-    myFlagReg  : entity work.flagReg generic map (n) port map ( clkNormal , rst(13) , dist_enable(13) , tempCarryOut , busA , busB , busC , flagRegOut );
+    myFlagReg  : entity work.flagReg generic map (n) port map ( clkNormal , rst(13) , flagRegEnable , tempCarryOut , busA , busB , busC , flagRegOut );
 
     IR_Register : entity work.nDFF generic map(n) port map ( clkNormal , rst(14) , dist_enable(14) , busC , IROut);
 
@@ -88,9 +89,8 @@ Architecture a_myProcessor of myProcessor is
 
     myALU : entity work.ALU generic map( n ) port map( busA , busB , aluSelector , aluCarryIn , busC , tempCarryOut );
 
-    readBus <= '0' when readMem='1' else
-    dist_enable(9);
+    readBus <= '0' when readMem='1' else dist_enable(9);
 
     offsetIROut <= "0000011111111111" and IROut when srcA_enable(14) = '1' or srcB_enable(14) = '1';
-
+    -- flagRegEnable <= '1' when mpc="" or dist_enable(13) = '1' else '0';
 End a_myProcessor;
