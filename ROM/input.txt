@@ -1,0 +1,68 @@
+RsrcoutA TransferA Xin
+
+RsrcoutA TransferA Marin Read
+RsrcoutA IncA Rsrcin WMFC
+MDRoutA TransferA Xin
+
+RsrcoutA DecA Rsrcin
+RsrcoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+PcoutA TransferA MARin Read
+PcoutA IncA Pcin WMFC
+MDRoutA RsrcoutB ADD MARin Read WMFC
+MDRoutA TransferA Xin
+
+RsrcoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin 
+
+RsrcoutA TransferA MARin Read
+RsrcoutA IncA Rsrcin WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+RsrcoutA DecA Rdistin
+RsrcoutA TransferA MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+PcoutA TransferA MARin Read
+WMFC PcoutA IncA Pcin
+MDRoutA RsrcoutB ADD MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Xin
+
+RdistoutA TransferA Yin
+
+RdistoutA TransferA Marin Read
+RdistoutA IncA Rdistin WMFC
+MDRoutA TransferA Yin
+
+RdistoutA DecA Rdistin
+RdistoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+PcoutA TransferA MARin Read
+PCoutA IncA PCin WMFC 
+MDRoutA RdistoutB ADD MARin Read WMFC
+MDRoutA TransferA Yin
+
+RdistoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+RdistoutA TransferA MARin Read
+RdistoutA IncA Rdistin WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+RdistoutA DecA Rdistin
+RdistoutA TransferA MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
+PcoutA TransferA MARin Read
+WMFC PcoutA IncA Pcin
+MDRoutA RdistoutB ADD MARin Read WMFC
+MDRoutA TransferA MARin Read WMFC
+MDRoutA TransferA Yin
+
