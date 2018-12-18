@@ -97,7 +97,7 @@ Architecture a_control_unit of control_unit is
                   
                   -- SUB
                   elsif ( IR(15 downto 12) = "0011" and IR(5 downto 3) = "000" ) then
-                    externalAddress <= std_logic_vector( to_unsigned( 80 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 80 , externalAddress'length )); 
                   elsif ( IR(15 downto 12) = "0011") then
                     externalAddress <= std_logic_vector( to_unsigned( 82 , externalAddress'length ));
 
@@ -196,7 +196,7 @@ Architecture a_control_unit of control_unit is
               
               -- if instruction exectued then mpc = 0000
               elsif( addInt = 73 or addInt = 75 or addInt = 77 or addInt = 79 or addInt = 81 or addInt = 83 or addInt = 85 or addInt = 87 or addInt = 89 or addInt = 91  or addInt = 93 or addInt = 95 or addInt = 97 or addInt = 99 or addInt = 101 or addInt = 103 or addInt = 105 or addInt = 107 or addInt = 109 or addInt = 111 or addInt = 113 or addInt = 115 or addInt = 117 or addInt = 119 or addInt = 121 or addInt = 123 or addInt = 125 or addInt = 127 or addInt = 129 or addInt = 131 or addInt = 133 or addInt = 135 or addInt = 137 or addInt = 139 or addInt = 141 or addInt = 143) then
-                externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length )); 
+                externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length )); 
               end if;
                 
         elsif(rising_edge(clkNormal)) then
@@ -230,7 +230,7 @@ Architecture a_control_unit of control_unit is
             srcA_IRoutEnable <= '1';
           end if;
           
-          -- to write on busA
+          -- to write on busB
           if( CW(20 downto 17) = "0000") then
               decoder_srcB_enable <= '0'; -- do nothing
           elsif ( CW(20 downto 17) = "0001" ) then
@@ -378,6 +378,5 @@ end a_control_unit;
 -- 136 -> # INC Dest if Dest is Register
 -- 138 -> # INC Dest if Dest Memory 
 -- 140 -> # DEC Dest if Dest is Register
--- 142 -> # DEC Dest if Dest Memory 
-
+-- 142 -> # DEC Dest if Dest Memory
 

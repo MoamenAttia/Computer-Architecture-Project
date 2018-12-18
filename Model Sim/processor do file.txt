@@ -146,7 +146,7 @@ mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /
 mem load -filltype value -filldata 0110000000000010011101000 -fillradix binary /control_unit/myRom/myROM(142)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(143)
 
-force -freeze sim:/control_unit/busA 0101 0
+# force -freeze sim:/control_unit/busA 0101 0
 force -freeze sim:/control_unit/aluCarryIn 0 0
 force -freeze sim:/control_unit/mpcRst 0 0
 force -freeze sim:/control_unit/decoder_dist_enable 0 0
