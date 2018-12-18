@@ -1,142 +1,36 @@
 vsim -gui work.myprocessor
 add wave -position insertpoint sim:/myprocessor/*
-
-
-mem load -filltype value -filldata 100 -fillradix decimal /myprocessor/myRama/myRam(0)
-mem load -filltype value -filldata 101 -fillradix decimal /myprocessor/myRama/myRam(1)
-mem load -filltype value -filldata 102 -fillradix decimal /myprocessor/myRama/myRam(2)
-mem load -filltype value -filldata 103 -fillradix decimal /myprocessor/myRama/myRam(3)
-mem load -filltype value -filldata 104 -fillradix decimal /myprocessor/myRama/myRam(4)
-mem load -filltype value -filldata 105 -fillradix decimal /myprocessor/myRama/myRam(5)
-mem load -filltype value -filldata 106 -fillradix decimal /myprocessor/myRama/myRam(6)
-mem load -filltype value -filldata 107 -fillradix decimal /myprocessor/myRama/myRam(7)
-mem load -filltype value -filldata 108 -fillradix decimal /myprocessor/myRama/myRam(8)
-mem load -filltype value -filldata 109 -fillradix decimal /myprocessor/myRama/myRam(9)
-mem load -filltype value -filldata 110 -fillradix decimal /myprocessor/myRama/myRam(10)
-mem load -filltype value -filldata 111 -fillradix decimal /myprocessor/myRama/myRam(11)
-mem load -filltype value -filldata 112 -fillradix decimal /myprocessor/myRama/myRam(12)
-mem load -filltype value -filldata 113 -fillradix decimal /myprocessor/myRama/myRam(13)
-mem load -filltype value -filldata 114 -fillradix decimal /myprocessor/myRama/myRam(14)
-mem load -filltype value -filldata 115 -fillradix decimal /myprocessor/myRama/myRam(15)
-mem load -filltype value -filldata 116 -fillradix decimal /myprocessor/myRama/myRam(16)
-mem load -filltype value -filldata 117 -fillradix decimal /myprocessor/myRama/myRam(17)
-mem load -filltype value -filldata 118 -fillradix decimal /myprocessor/myRama/myRam(18)
-mem load -filltype value -filldata 119 -fillradix decimal /myprocessor/myRama/myRam(19)
-mem load -filltype value -filldata 120 -fillradix decimal /myprocessor/myRama/myRam(20)
-mem load -filltype value -filldata 121 -fillradix decimal /myprocessor/myRama/myRam(21)
-mem load -filltype value -filldata 122 -fillradix decimal /myprocessor/myRama/myRam(22)
-mem load -filltype value -filldata 123 -fillradix decimal /myprocessor/myRama/myRam(23)
-mem load -filltype value -filldata 124 -fillradix decimal /myprocessor/myRama/myRam(24)
-mem load -filltype value -filldata 125 -fillradix decimal /myprocessor/myRama/myRam(25)
-mem load -filltype value -filldata 126 -fillradix decimal /myprocessor/myRama/myRam(26)
-mem load -filltype value -filldata 127 -fillradix decimal /myprocessor/myRama/myRam(27)
-mem load -filltype value -filldata 128 -fillradix decimal /myprocessor/myRama/myRam(28)
-mem load -filltype value -filldata 129 -fillradix decimal /myprocessor/myRama/myRam(29)
-mem load -filltype value -filldata 130 -fillradix decimal /myprocessor/myRama/myRam(30)
-mem load -filltype value -filldata 131 -fillradix decimal /myprocessor/myRama/myRam(31)
-mem load -filltype value -filldata 132 -fillradix decimal /myprocessor/myRama/myRam(32)
-mem load -filltype value -filldata 133 -fillradix decimal /myprocessor/myRama/myRam(33)
-mem load -filltype value -filldata 134 -fillradix decimal /myprocessor/myRama/myRam(34)
-mem load -filltype value -filldata 135 -fillradix decimal /myprocessor/myRama/myRam(35)
-mem load -filltype value -filldata 136 -fillradix decimal /myprocessor/myRama/myRam(36)
-mem load -filltype value -filldata 137 -fillradix decimal /myprocessor/myRama/myRam(37)
-mem load -filltype value -filldata 138 -fillradix decimal /myprocessor/myRama/myRam(38)
-mem load -filltype value -filldata 139 -fillradix decimal /myprocessor/myRama/myRam(39)
-mem load -filltype value -filldata 140 -fillradix decimal /myprocessor/myRama/myRam(40)
-mem load -filltype value -filldata 141 -fillradix decimal /myprocessor/myRama/myRam(41)
-mem load -filltype value -filldata 142 -fillradix decimal /myprocessor/myRama/myRam(42)
-mem load -filltype value -filldata 143 -fillradix decimal /myprocessor/myRama/myRam(43)
-mem load -filltype value -filldata 144 -fillradix decimal /myprocessor/myRama/myRam(44)
-mem load -filltype value -filldata 145 -fillradix decimal /myprocessor/myRama/myRam(45)
-mem load -filltype value -filldata 146 -fillradix decimal /myprocessor/myRama/myRam(46)
-mem load -filltype value -filldata 147 -fillradix decimal /myprocessor/myRama/myRam(47)
-mem load -filltype value -filldata 148 -fillradix decimal /myprocessor/myRama/myRam(48)
-mem load -filltype value -filldata 149 -fillradix decimal /myprocessor/myRama/myRam(49)
-mem load -filltype value -filldata 150 -fillradix decimal /myprocessor/myRama/myRam(50)
-mem load -filltype value -filldata 151 -fillradix decimal /myprocessor/myRama/myRam(51)
-mem load -filltype value -filldata 152 -fillradix decimal /myprocessor/myRama/myRam(52)
-mem load -filltype value -filldata 153 -fillradix decimal /myprocessor/myRama/myRam(53)
-mem load -filltype value -filldata 154 -fillradix decimal /myprocessor/myRama/myRam(54)
-mem load -filltype value -filldata 155 -fillradix decimal /myprocessor/myRama/myRam(55)
-mem load -filltype value -filldata 156 -fillradix decimal /myprocessor/myRama/myRam(56)
-mem load -filltype value -filldata 157 -fillradix decimal /myprocessor/myRama/myRam(57)
-mem load -filltype value -filldata 158 -fillradix decimal /myprocessor/myRama/myRam(58)
-mem load -filltype value -filldata 159 -fillradix decimal /myprocessor/myRama/myRam(59)
-mem load -filltype value -filldata 160 -fillradix decimal /myprocessor/myRama/myRam(60)
-mem load -filltype value -filldata 161 -fillradix decimal /myprocessor/myRama/myRam(61)
-mem load -filltype value -filldata 162 -fillradix decimal /myprocessor/myRama/myRam(62)
-mem load -filltype value -filldata 163 -fillradix decimal /myprocessor/myRama/myRam(63)
-
-
-
-
-
-force -freeze sim:/myprocessor/clkNormal 0 0, 1 {50 ps} -r 100
+force -freeze sim:/myprocessor/busA 0101 0
+force -freeze sim:/myprocessor/aluCarryIn 0 0
+force -freeze sim:/myprocessor/decoder_dist_enable 1 0
+force -freeze sim:/myprocessor/decoder_srcB_enable 0 0
+force -freeze sim:/myprocessor/decoder_srcA_enable 0 0
 force -freeze sim:/myprocessor/clkRam 1 0, 0 {50 ps} -r 100
-
-# Load 0F0F -> Ro
-
-force -freeze sim:/myprocessor/busC 0F0F 0
-force -freeze sim:/myprocessor/decoder_srcA_selector 0 0
-force -freeze sim:/myprocessor/decoder_srcB_selector 0 0
+force -freeze sim:/myprocessor/clkNormal 0 0, 1 {50 ps} -r 100
+force -freeze sim:/myprocessor/readMem 0 0
+force -freeze sim:/myprocessor/writeMem 0 0
 force -freeze sim:/myprocessor/decoder_dist_selector 0 0
-force -freeze sim:/myprocessor/decoder_dist_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcA_enable 0 0
-force -freeze sim:/myprocessor/decoder_srcB_enable 0 0
-force -freeze sim:/myprocessor/rst 0 0
-run
-
-# Load 000A -> R1
-
-force -freeze sim:/myprocessor/busC 000A 0
+force -freeze sim:/myprocessor/decoder_srcB_selector 0000 0
 force -freeze sim:/myprocessor/decoder_srcA_selector 0 0
-force -freeze sim:/myprocessor/decoder_srcB_selector 0 0
-force -freeze sim:/myprocessor/decoder_dist_selector 1 0
-force -freeze sim:/myprocessor/decoder_dist_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcA_enable 0 0
-force -freeze sim:/myprocessor/decoder_srcB_enable 0 0
-force -freeze sim:/myprocessor/rst 0 0
-run
-
-# Ro -> BusA and R1 -> BusB and    ALU(Ro and R1) -> R3
-
-noforce sim:/myprocessor/busC
-force -freeze sim:/myprocessor/decoder_srcA_selector 0 0
-force -freeze sim:/myprocessor/decoder_srcB_selector 1 0
-force -freeze sim:/myprocessor/decoder_dist_selector 3 0
-force -freeze sim:/myprocessor/decoder_dist_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcA_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcB_enable 1 0
-force -freeze sim:/myprocessor/aluSelector 4 0
-force -freeze sim:/myprocessor/rst 0 0
-run
-
-
-# Ro -> MAR
-force -freeze sim:/myprocessor/decoder_srcA_selector 0 0
-force -freeze sim:/myprocessor/decoder_dist_selector 8 0
-force -freeze sim:/myprocessor/decoder_dist_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcA_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcB_enable 0 0
 force -freeze sim:/myprocessor/aluSelector 0 0
-force -freeze sim:/myprocessor/rst 0 0
-force -freeze sim:/myprocessor/aluCarryIn 0 0
+force -freeze sim:/myprocessor/srcA_R6Enable 0 0
+force -freeze sim:/myprocessor/srcA_R7Enable 0 0
+force -freeze sim:/myprocessor/srcA_TempXEnable 0 0
+force -freeze sim:/myprocessor/srcA_TempYEnable 0 0
+force -freeze sim:/myprocessor/srcA_MDRoutEnable 0 0
+force -freeze sim:/myprocessor/srcA_IRoutEnable 0 0
+force -freeze sim:/myprocessor/srcB_R6Enable 0 0
+force -freeze sim:/myprocessor/srcB_R7Enable 0 0
+force -freeze sim:/myprocessor/srcB_TempXEnable 0 0
+force -freeze sim:/myprocessor/srcB_TempYEnable 0 0
+force -freeze sim:/myprocessor/srcB_MDRoutEnable 0 0
+force -freeze sim:/myprocessor/srcB_IRoutEnable 0 0
+force -freeze sim:/myprocessor/R6InEnable 0 0
+force -freeze sim:/myprocessor/R7InEnable 0 0
+force -freeze sim:/myprocessor/IRinEnable 0 0
+force -freeze sim:/myprocessor/TempXinEnable 0 0
+force -freeze sim:/myprocessor/TempYinEnable 0 0
+force -freeze sim:/myprocessor/MDRinEnable 0 0
+force -freeze sim:/myprocessor/MARinEnable 0 0
+force -freeze sim:/myprocessor/rst FFFF 0
 run
-
-# Ro -> MDR
-force -freeze sim:/myprocessor/decoder_srcA_selector 0 0
-force -freeze sim:/myprocessor/decoder_dist_selector 9 0
-force -freeze sim:/myprocessor/decoder_dist_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcA_enable 1 0
-force -freeze sim:/myprocessor/decoder_srcB_enable 0 0
-force -freeze sim:/myprocessor/aluSelector 0 0
-force -freeze sim:/myprocessor/rst 0 0
-force -freeze sim:/myprocessor/aluCarryIn 0 0
-force -freeze sim:/myprocessor/readBus 1 0
-run
-
-# Write Ro To Memory
-force -freeze sim:/myprocessor/readMem 1 0
-force -freeze sim:/myprocessor/writeMem 1 0
-run
-

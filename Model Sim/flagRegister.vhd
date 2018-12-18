@@ -17,7 +17,7 @@ architecture a_flagReg of flagReg is
     process( clk , en , rst )
       begin
         if rst = '1' then
-          q <="0000";
+          q <=(others =>'0');
         elsif rising_edge(clk) and rst = '0' and En = '1' then
           q(0) <= carryOut;
           q(1) <= ( not(A(n-1)) and not(B(n-1)) and C(n-1) ) or ( A(n-1) and B(n-1) and not(C(n-1)) );
