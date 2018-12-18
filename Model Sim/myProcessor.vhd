@@ -11,8 +11,6 @@ Entity myProcessor is
            R6InEnable ,R7InEnable , IRinEnable : in std_logic;
            TempXinEnable , TempYinEnable : in std_logic;
            MDRinEnable , MARinEnable : in std_logic;
-
-
            busA , busB , busC : inout std_logic_vector(n-1 downto 0);
            rst : in std_logic_vector(15 downto 0)   -- 16 registers
         );

@@ -32,28 +32,128 @@ Architecture a_control_unit of control_unit is
   Begin
     process(clkNormal)
       Begin
+        external <= '0';
         if(rising_edge(clkNormal) and CW = "0000000000000000000000000") then
-            if (addInt = 4 or addInt = 6 or addInt = 10 or addInt = 14 or addInt = 19 or addInt = 22 or addInt = 27 or addInt = 32) then
-              if (IR(5 downto 3) = "000") then
-                  externalAddress <= std_logic_vector( to_unsigned( 38 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "001") then
-                  externalAddress <= std_logic_vector( to_unsigned( 40 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "010") then
-                  externalAddress <= std_logic_vector( to_unsigned( 44 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "011") then
-                  externalAddress <= std_logic_vector( to_unsigned( 48 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "100") then
-                  externalAddress <= std_logic_vector( to_unsigned( 53 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "101") then
-                  externalAddress <= std_logic_vector( to_unsigned( 56 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "110") then
-                  externalAddress <= std_logic_vector( to_unsigned( 61 , externalAddress'length ));
-              elsif (IR(5 downto 3) = "111") then
-                  externalAddress <= std_logic_vector( to_unsigned( 66 , externalAddress'length ));
-              end if;
-            external <= '1';
-            end if;
+          
+              -- if two operand and after fetching the IR -- Ro7 Geeb EL SOURCE.
+              if ((addInt = 3 and IR(15) = '0') or (IR(15 downto 12) = "1000") ) then
+                    if(IR( 11 downto 9 ) = "000") then
+                      externalAddress <= std_logic_vector( to_unsigned( 4 , externalAddress'length ));  external <= '1';
+                    elsif(IR( 11 downto 9 ) = "001") then
+                      externalAddress <= std_logic_vector( to_unsigned( 6 , externalAddress'length ));  external <= '1';
+                    elsif(IR( 11 downto 9 ) = "010") then
+                      externalAddress <= std_logic_vector( to_unsigned( 10 , externalAddress'length )); external <= '1';
+                    elsif(IR( 11 downto 9 ) = "011") then
+                      externalAddress <= std_logic_vector( to_unsigned( 14 , externalAddress'length )); external <= '1';
+                    elsif(IR( 11 downto 9 ) = "100") then
+                      externalAddress <= std_logic_vector( to_unsigned( 19 , externalAddress'length )); external <= '1';
+                    elsif(IR( 11 downto 9 ) = "101") then
+                      externalAddress <= std_logic_vector( to_unsigned( 22 , externalAddress'length )); external <= '1';
+                    elsif(IR( 11 downto 9 ) = "110") then
+                      externalAddress <= std_logic_vector( to_unsigned( 27 , externalAddress'length )); external <= '1';
+                    elsif(IR( 11 downto 9 ) = "111") then
+                      externalAddress <= std_logic_vector( to_unsigned( 32 , externalAddress'length )); external <= '1';
+                    end if;
 
+              -- if One operand and after fetching the IR -- Ro7 Geeb EL Destination.
+              elsif ( (addInt = 3 and IR(15 downto 12) = "1001") or (addInt = 5 or addInt = 9 or addInt = 13 or addInt = 18 or addInt = 21 or addInt = 26 or addInt = 31 or addInt = 37) ) then
+                if (IR(5 downto 3) = "000") then
+                  externalAddress <= std_logic_vector( to_unsigned( 38 , externalAddress'length ));   external <= '1';
+                elsif (IR(5 downto 3) = "001") then
+                    externalAddress <= std_logic_vector( to_unsigned( 40 , externalAddress'length )); external <= '1';
+                elsif (IR(5 downto 3) = "010") then
+                    externalAddress <= std_logic_vector( to_unsigned( 44 , externalAddress'length )); external <= '1';
+                elsif (IR(5 downto 3) = "011") then
+                    externalAddress <= std_logic_vector( to_unsigned( 48 , externalAddress'length )); external <= '1';
+                elsif (IR(5 downto 3) = "100") then
+                    externalAddress <= std_logic_vector( to_unsigned( 53 , externalAddress'length )); external <= '1';
+                elsif (IR(5 downto 3) = "101") then
+                    externalAddress <= std_logic_vector( to_unsigned( 56 , externalAddress'length )); external <= '1';
+                elsif (IR(5 downto 3) = "110") then
+                    externalAddress <= std_logic_vector( to_unsigned( 61 , externalAddress'length )); external <= '1';
+                elsif (IR(5 downto 3) = "111") then
+                    externalAddress <= std_logic_vector( to_unsigned( 66 , externalAddress'length )); external <= '1';
+                end if;
+
+              -- 96  -> # XNOR Src , Dest  if Dest is Register
+              -- 98  -> # XNOR Src , Dest  if Dest is Memory
+              
+              -- 100 -> # INV Dest if Dest is Register Mode
+              -- 102 -> # INV Dest if Dest is Memory
+              
+              -- 104 -> # LSL Dest if Dest is Register
+              -- 106 -> # LSL Dest if Dest is Memory
+              
+              -- 108 -> # LSR Dest if Dest is Register
+              -- 110 -> # LSR Dest if Dest is Memory
+              
+              -- 112 -> # ROR Dest if Dest is Register
+              -- 114 -> # ROR Dest if Dest is Memory
+              
+              -- 116 -> # ROL Dest if Dest is Register
+              -- 118 -> # ROL Dest if Dest is Memory
+              
+              -- 120 -> # ASR Dest if Dest is Register
+              -- 122 -> # ASR Dest if Dest is Memory
+              
+              -- 124 -> # RRC Dest if Dest is Register
+              -- 126 -> # RRC Dest if Dest is Memory
+              
+              -- 128 -> # RLC Dest if Dest is Register
+              -- 130 -> # RLC Dest if Dest is Memory
+
+
+              elsif ( addInt = 39 or addInt = 43 or addInt = 47 or addInt = 52 or addInt = 55 or addInt = 60 or addInt = 65 or addInt = 71 ) then
+                  -- MOV
+                  if ( IR(15 downto 12) = "0000" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 72 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0000") then
+                    externalAddress <= std_logic_vector( to_unsigned( 74 , externalAddress'length ));   external <= '1';
+                  
+                  -- ADD
+                  elsif ( IR(15 downto 12) = "0001" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 72 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0001") then
+                    externalAddress <= std_logic_vector( to_unsigned( 74 , externalAddress'length ));   external <= '1';
+                  
+                  -- ADDC
+                  elsif ( IR(15 downto 12) = "0010" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 76 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0010") then
+                    externalAddress <= std_logic_vector( to_unsigned( 78 , externalAddress'length ));   external <= '1';
+                  
+                  -- SUB
+                  elsif ( IR(15 downto 12) = "0011" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 80 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0011") then
+                    externalAddress <= std_logic_vector( to_unsigned( 82 , externalAddress'length ));   external <= '1';
+
+                  -- SUBC
+                  elsif ( IR(15 downto 12) = "0100" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 84 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0100") then
+                    externalAddress <= std_logic_vector( to_unsigned( 86 , externalAddress'length ));   external <= '1';
+                  
+                  -- AND
+                  elsif ( IR(15 downto 12) = "0101" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 88 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0101") then
+                    externalAddress <= std_logic_vector( to_unsigned( 90 , externalAddress'length ));   external <= '1';
+                  
+                  -- OR
+                  elsif ( IR(15 downto 12) = "0110" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 92 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0110") then
+                    externalAddress <= std_logic_vector( to_unsigned( 94 , externalAddress'length ));   external <= '1';
+                  
+                  -- XNOR
+                  elsif ( IR(15 downto 12) = "0111" and IR(5 downto 3) = "000" ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 96 , externalAddress'length ));   external <= '1';
+                  elsif ( IR(15 downto 12) = "0111") then
+                    externalAddress <= std_logic_vector( to_unsigned( 98 , externalAddress'length ));   external <= '1';
+                  end if;
+              end if;
+                
         elsif(rising_edge(clkNormal)) then
           external <= '0';
           decoder_srcA_enable <= '0'; decoder_srcB_enable <= '0'; decoder_dist_enable <= '0';
@@ -109,7 +209,6 @@ Architecture a_control_unit of control_unit is
           end if;
 
           -- to read from busC
-
           if( CW(16 downto 14) = "000") then
               decoder_dist_enable <= '0'; -- do nothing
           elsif ( CW(16 downto 14) = "001" ) then
@@ -179,7 +278,7 @@ Architecture a_control_unit of control_unit is
         );
 
     myMPC : entity work.mpc generic map(n) port map( mpcRst , clkNormal , external , externalAddress , addressCW );
-    myRom : entity work.real_rom port map( romRead , addressROM , CW  );
+    myRom : entity work.real_rom port map( romRead , addressCW(7 downto 0) , CW  );
 end a_control_unit;
 
 -- 0   -> # Fetch and Decode
@@ -229,3 +328,4 @@ end a_control_unit;
 -- 126 -> # RRC Dest if Dest is Memory
 -- 128 -> # RLC Dest if Dest is Register
 -- 130 -> # RLC Dest if Dest is Memory
+
