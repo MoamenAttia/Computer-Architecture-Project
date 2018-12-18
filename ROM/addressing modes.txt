@@ -176,3 +176,10 @@ YoutA RLC RdistIn
 
 # RLC Dest if Dest is Memory
 YoutA RLC MDRin Write WMFC
+
+# CLR Dest if Dest is Register
+YoutA CLR RdistIn
+
+# CLR Dest if Dest is Register
+YoutA CLR MDRin Write WMFC
+
