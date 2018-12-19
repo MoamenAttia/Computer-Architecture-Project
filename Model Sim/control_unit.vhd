@@ -5,17 +5,14 @@ Entity control_unit is
 generic (n : integer := 16);
   port(
     IR : in std_logic_vector(n-1 downto 0);
-    flagRegister : in std_logic_vector(n-1 downto 0);
-    clkNormal , clkRam : in std_logic;
-    busA,busB,busC : inout std_logic_vector(n-1 downto 0);
-    rst : in std_logic_vector(15 downto 0)   -- 16 registers
-
-    );
+    flagRegister : in std_logic_vector(n-1 downto 0));
 
 End entity control_unit;
 
 Architecture a_control_unit of control_unit is
-  signal external , mpcRst , romRead : std_logic;
+  signal clkNormal  : std_logic := '0';
+  signal clkRam : std_logic := '1';
+  signal external , mpcRst , pcCoutnerRst , pcExternal : std_logic := '0';
   signal decoder_srcA_enable   , decoder_srcB_enable   , decoder_dist_enable   , aluCarryIn  , writeMem , readMem : std_logic;
   signal decoder_srcA_selector , decoder_srcB_selector , decoder_dist_selector , aluSelector : std_logic_vector(3 downto 0);
   signal srcA_R6Enable , srcA_R7Enable , srcA_TempXEnable , srcA_TempYEnable , srcA_MDRoutEnable , srcA_IRoutEnable : std_logic;
@@ -23,31 +20,33 @@ Architecture a_control_unit of control_unit is
   signal R6InEnable ,R7InEnable , IRinEnable : std_logic;
   signal TempXinEnable , TempYinEnable : std_logic;
   signal MDRinEnable , MARinEnable : std_logic;
-
-
-  signal externalAddress , addressCW : std_logic_vector(n-1 downto 0);
-  signal addressROM : std_logic_vector(7 downto 0) := "00000100";
+  signal rst : std_logic_vector(15 downto 0) := (others=>'0');   -- 16 registers
+  signal busA,busB,busC : std_logic_vector(n-1 downto 0) := X"0000";
+  signal externalAddress , pcAddressExternal , pcAddress : std_logic_vector(n-1 downto 0);
+  signal addressROM : std_logic_vector(n-1 downto 0);
   signal CW : std_logic_vector(24 downto 0);
   signal addInt : integer := 0;
+  signal romRead : std_logic := '1';
   Begin
     process(clkNormal)
       Begin
-          external <= '0';
+          external <= '0'; pcCoutnerRst <= '0'; pcExternal <= '1'; readMem <= '1'; writeMem <= '0';
           decoder_srcA_enable <= '0'; decoder_srcB_enable <= '0'; decoder_dist_enable <= '0';
           srcA_R6Enable <= '0'; srcA_R7Enable <= '0'; srcA_TempXEnable <= '0'; srcA_TempYEnable <= '0'; srcA_MDRoutEnable <= '0'; srcA_IRoutEnable <= '0';
           srcB_R6Enable <= '0'; srcB_R7Enable <= '0'; srcB_TempXEnable <= '0'; srcB_TempYEnable <= '0'; srcB_MDRoutEnable <= '0'; srcB_IRoutEnable <= '0';
           R6InEnable <= '0'; R7InEnable <= '0'; IRinEnable <= '0';
           TempXinEnable <= '0'; TempYinEnable <= '0';
-          MDRinEnable <= '0'; MARinEnable <= '0';
-          external <= '0';
+          MDRinEnable <= '0'; MARinEnable <= '0';     
+          pcAddressExternal <= std_logic_vector(unsigned(pcAddressExternal));
         if(rising_edge(clkNormal) and CW = "0000000000000000000000000") then
               external <= '1';
+              
                -- Branches Instructtions
               if ( addInt = 3  and IR(15 downto 14) = "11" ) then
                 -- BR
                 if ( IR(13 downto 11) = "000" ) then
                   externalAddress <= std_logic_vector( to_unsigned( 144 , externalAddress'length ));
-                  R7InEnable <= '1';
+                  R7InEnable <= '1'; srcA_IRoutEnable <= '1';
                 end if ;
 
               -- if two operand and after fetching the IR -- Ro7 Geeb EL SOURCE.
@@ -210,7 +209,10 @@ Architecture a_control_unit of control_unit is
                     
               -- if instruction exectued then mpc = 0000
               elsif( addInt = 73 or addInt = 75 or addInt = 77 or addInt = 79 or addInt = 81 or addInt = 83 or addInt = 85 or addInt = 87 or addInt = 89 or addInt = 91  or addInt = 93 or addInt = 95 or addInt = 97 or addInt = 99 or addInt = 101 or addInt = 103 or addInt = 105 or addInt = 107 or addInt = 109 or addInt = 111 or addInt = 113 or addInt = 115 or addInt = 117 or addInt = 119 or addInt = 121 or addInt = 123 or addInt = 125 or addInt = 127 or addInt = 129 or addInt = 131 or addInt = 133 or addInt = 135 or addInt = 137 or addInt = 139 or addInt = 141 or addInt = 143 or addInt = 145) then
-                externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length )); 
+                externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
+                pcExternal <= '1';
+                pcAddressExternal <= std_logic_vector(unsigned(pcAddressExternal) + 1);
+                MARinEnable <= '1';
               end if;
                 
         elsif(rising_edge(clkNormal)) then
@@ -314,7 +316,7 @@ Architecture a_control_unit of control_unit is
 
       end if;
     End process;
-    addInt <= to_integer(unsigned(addressCW));
+    addInt <= to_integer( unsigned(addressROM) );
 
 
     myProcessorElGamed : entity work.myProcessor generic map(16 , 2048 , 11) port map
@@ -330,8 +332,9 @@ Architecture a_control_unit of control_unit is
           rst
         );
 
-    myMPC : entity work.mpc generic map(n) port map( mpcRst , clkNormal , external , externalAddress , addressCW );
-    myRom : entity work.real_rom port map( romRead , addressCW(7 downto 0) , CW  );
+    myMPC : entity work.mpc generic map(n) port map( mpcRst , clkNormal , external , externalAddress , addressROM );
+    myRom : entity work.real_rom port map( romRead , addressROM(7 downto 0) , CW  );
+    myPC_Coutnter : entity work.mpc generic map(n) port map ( pcCoutnerRst , clkNormal , pcExternal , pcAddressExternal , pcAddress );
 end a_control_unit;
 
 -- 0   -> # Fetch and Decode
