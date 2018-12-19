@@ -5,10 +5,9 @@ Entity control_unit is
 generic (n : integer := 16);
   port(
     IR : in std_logic_vector(n-1 downto 0);
-    flagRegister : in std_logic_vector(n-1 downto 0);
     clkNormal , clkRam : in std_logic;
     busA,busB,busC : inout std_logic_vector(n-1 downto 0);
-    rst : in std_logic_vector(15 downto 0)   -- 16 registers
+    rst : in std_logic_vector(15 downto 0)
     );
 
 End entity control_unit;
@@ -21,6 +20,7 @@ Architecture a_control_unit of control_unit is
   signal srcB_R6Enable , srcB_R7Enable , srcB_TempXEnable , srcB_TempYEnable , srcB_MDRoutEnable , srcB_IRoutEnable : std_logic;
   signal R6InEnable ,R7InEnable , IRinEnable : std_logic;
   signal TempXinEnable , TempYinEnable : std_logic;
+  signal flagRegOut : std_logic_vector(n-1 downto 0);
   signal MDRinEnable , MARinEnable , flagRegEnable , isCarryInstruction: std_logic;
 
 
@@ -29,27 +29,61 @@ Architecture a_control_unit of control_unit is
   signal CW : std_logic_vector(24 downto 0);
   signal addInt : integer := 0;
   Begin
-    process(clkNormal)
+    process(clkNormal , CW , clkRam , flagRegEnable , aluSelector)
       Begin
         
         if(rising_edge(clkNormal) and CW = "0000000000000000000000000") then
           external <= '0';
-          flagRegEnable <= '0';
           decoder_srcA_enable <= '0'; decoder_srcB_enable <= '0'; decoder_dist_enable <= '0';
           srcA_R6Enable <= '0'; srcA_R7Enable <= '0'; srcA_TempXEnable <= '0'; srcA_TempYEnable <= '0'; srcA_MDRoutEnable <= '0'; srcA_IRoutEnable <= '0';
           srcB_R6Enable <= '0'; srcB_R7Enable <= '0'; srcB_TempXEnable <= '0'; srcB_TempYEnable <= '0'; srcB_MDRoutEnable <= '0'; srcB_IRoutEnable <= '0';
           R6InEnable <= '0'; R7InEnable <= '0'; IRinEnable <= '0';
           TempXinEnable <= '0'; TempYinEnable <= '0';
           MDRinEnable   <= '0'; MARinEnable   <= '0';  
-          isCarryInstruction <= '0';
-
+          isCarryInstruction <= '0'; flagRegEnable <= '0';
 
               external <= '1';
               if ( addInt = 3  and IR(15 downto 14) = "11" ) then
                 -- BR
-                if ( IR(13 downto 11) = "000" ) then
+                if ( IR(13 downto 11) = "000" ) then -- no condtions
                   externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
-                end if ;
+                elsif ( IR(13 downto 11) = "001") then -- BEQ jump when Z = 1 
+                  if( flagRegOut(2) = '1' ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
+                  else
+                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  end if;
+                elsif ( IR(13 downto 11) = "010" ) then -- BNE jump when Z = 0
+                  if( flagRegOut(2) = '0' ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
+                  else
+                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  end if;
+                elsif ( IR(13 downto 11) = "011" ) then -- BLO jump when C = 0
+                  if( flagRegOut(0) = '0' ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
+                  else
+                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  end if;
+                elsif ( IR(13 downto 11) = "100" ) then -- BLS Jump when C =0 | Z = 1
+                  if( flagRegOut(0) = '0' or flagRegOut(2) = '1' ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
+                  else
+                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  end if;
+                elsif ( IR(13 downto 11) = "101" ) then -- BHI Jump when C = 1 
+                  if( flagRegOut(0) = '1' ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
+                  else
+                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  end if;
+                elsif ( IR(13 downto 11) = "110" ) then -- BHS Jump when C = 1 or Z = 1
+                  if( flagRegOut(0) = '1' or flagRegOut(2) = '1' ) then
+                    externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
+                  else
+                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  end if;
+              end if ;
                 
               -- if two operand and after fetching the IR -- Ro7 Geeb EL SOURCE.
               elsif ((addInt = 3 and IR(15) = '0') or (IR(15 downto 12) = "1000") ) then
@@ -217,7 +251,8 @@ Architecture a_control_unit of control_unit is
               
               -- if instruction exectued then mpc = 0000
               elsif( addInt = 73 or addInt = 75 or addInt = 77 or addInt = 79 or addInt = 81 or addInt = 83 or addInt = 85 or addInt = 87 or addInt = 89 or addInt = 91  or addInt = 93 or addInt = 95 or addInt = 97 or addInt = 99 or addInt = 101 or addInt = 103 or addInt = 105 or addInt = 107 or addInt = 109 or addInt = 111 or addInt = 113 or addInt = 115 or addInt = 117 or addInt = 119 or addInt = 121 or addInt = 123 or addInt = 125 or addInt = 127 or addInt = 129 or addInt = 131 or addInt = 133 or addInt = 135 or addInt = 137 or addInt = 139 or addInt = 141 or addInt = 143 or addInt = 145 or addInt = 147 or addInt = 149) then
-                externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length )); 
+                externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                  
               end if;
                 
         elsif(rising_edge(clkNormal)) then
@@ -228,7 +263,8 @@ Architecture a_control_unit of control_unit is
           R6InEnable <= '0'; R7InEnable <= '0'; IRinEnable <= '0';
           TempXinEnable <= '0'; TempYinEnable <= '0';
           MDRinEnable <= '0'; MARinEnable <= '0';  
-          flagRegEnable <= '0'; isCarryInstruction <= '0';
+          isCarryInstruction <= '0'; flagRegEnable <= '0';
+          
 
           -- to write on busA
           if( CW(24 downto 21) = "0000") then
@@ -309,9 +345,9 @@ Architecture a_control_unit of control_unit is
 
           -- to set aluSelector
           aluSelector <= CW(9 downto 6);
-
+          
           -- to setALUCarryIN
-          if(IR(15 downto 12) = "0010" or IR(15 downto 12) = "0100" or ( IR(15 downto 12) = "1001" and IR(11 downto 8) = "0110" ) or (  IR(15 downto 12) = "1001" and IR(11 downto 8) = "1010" )  ) then
+          if( addInt = 80 or addInt = 82 or addInt = 88 or addInt = 90 or addInt = 128 or addInt = 130 or addInt = 132 or addInt = 134 ) then
             isCarryInstruction <= '1';
           end if;
           aluCarryIn <= CW(1);
@@ -342,7 +378,8 @@ Architecture a_control_unit of control_unit is
           rst ,
           IR  ,
           flagRegEnable,
-          isCarryInstruction
+          isCarryInstruction,
+          flagRegOut
         );
     myMPC : entity work.mpc generic map(n) port map( mpcRst , clkNormal , external , externalAddress , addressCW );
     myRom : entity work.real_rom port map( romRead , addressCW(7 downto 0) , CW  );

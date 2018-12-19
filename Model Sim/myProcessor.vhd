@@ -15,12 +15,13 @@ Entity myProcessor is
            rst : in std_logic_vector(15 downto 0);   -- 16 registers
            IRR : in std_logic_vector(n-1 downto 0);
            flagRegEnable : in std_logic;
-           isCarryInstruction : in std_logic
+           isCarryInstruction : in std_logic;
+           flagRegOut : inout std_logic_vector(n-1 downto 0)
         );
 End myProcessor;
 
 Architecture a_myProcessor of myProcessor is
-    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut ,  flagRegOut , offsetIROut : std_logic_vector(n-1 downto 0);
+    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut , offsetIROut : std_logic_vector(n-1 downto 0);
     signal readBus , tempCarryOut : std_logic := '1';
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
     signal IROut : std_logic_vector(n-1 downto 0);
