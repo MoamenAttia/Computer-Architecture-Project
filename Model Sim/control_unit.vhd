@@ -4,7 +4,6 @@ USE IEEE.numeric_std.ALL;
 Entity control_unit is
 generic (n : integer := 16);
   port(
-    IR : in std_logic_vector(n-1 downto 0);
     clkNormal , clkRam : in std_logic;
     busA,busB,busC : inout std_logic_vector(n-1 downto 0);
     rst : in std_logic_vector(15 downto 0)
@@ -21,6 +20,7 @@ Architecture a_control_unit of control_unit is
   signal R6InEnable ,R7InEnable , IRinEnable : std_logic;
   signal TempXinEnable , TempYinEnable : std_logic;
   signal flagRegOut : std_logic_vector(n-1 downto 0);
+  signal IR : std_logic_vector(n-1 downto 0) := X"0000";
   signal MDRinEnable , MARinEnable , flagRegEnable , isCarryInstruction: std_logic;
 
 
@@ -51,37 +51,37 @@ Architecture a_control_unit of control_unit is
                   if( flagRegOut(2) = '1' ) then
                     externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
                   else
-                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   end if;
                 elsif ( IR(13 downto 11) = "010" ) then -- BNE jump when Z = 0
                   if( flagRegOut(2) = '0' ) then
                     externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
                   else
-                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   end if;
                 elsif ( IR(13 downto 11) = "011" ) then -- BLO jump when C = 0
                   if( flagRegOut(0) = '0' ) then
                     externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
                   else
-                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   end if;
                 elsif ( IR(13 downto 11) = "100" ) then -- BLS Jump when C =0 | Z = 1
                   if( flagRegOut(0) = '0' or flagRegOut(2) = '1' ) then
                     externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
                   else
-                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   end if;
                 elsif ( IR(13 downto 11) = "101" ) then -- BHI Jump when C = 1 
                   if( flagRegOut(0) = '1' ) then
                     externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
                   else
-                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   end if;
                 elsif ( IR(13 downto 11) = "110" ) then -- BHS Jump when C = 1 or Z = 1
                   if( flagRegOut(0) = '1' or flagRegOut(2) = '1' ) then
                     externalAddress <= std_logic_vector( to_unsigned( 148 , externalAddress'length ));
                   else
-                    externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                    externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   end if;
               end if ;
                 
@@ -251,7 +251,7 @@ Architecture a_control_unit of control_unit is
               
               -- if instruction exectued then mpc = 0000
               elsif( addInt = 73 or addInt = 75 or addInt = 77 or addInt = 79 or addInt = 81 or addInt = 83 or addInt = 85 or addInt = 87 or addInt = 89 or addInt = 91  or addInt = 93 or addInt = 95 or addInt = 97 or addInt = 99 or addInt = 101 or addInt = 103 or addInt = 105 or addInt = 107 or addInt = 109 or addInt = 111 or addInt = 113 or addInt = 115 or addInt = 117 or addInt = 119 or addInt = 121 or addInt = 123 or addInt = 125 or addInt = 127 or addInt = 129 or addInt = 131 or addInt = 133 or addInt = 135 or addInt = 137 or addInt = 139 or addInt = 141 or addInt = 143 or addInt = 145 or addInt = 147 or addInt = 149) then
-                externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length ));
+                externalAddress <= std_logic_vector( to_unsigned( 0 , externalAddress'length ));
                   
               end if;
                 
@@ -265,7 +265,6 @@ Architecture a_control_unit of control_unit is
           MDRinEnable <= '0'; MARinEnable <= '0';  
           isCarryInstruction <= '0'; flagRegEnable <= '0';
           
-
           -- to write on busA
           if( CW(24 downto 21) = "0000") then
               decoder_srcA_enable <= '0'; -- do nothing
@@ -376,10 +375,10 @@ Architecture a_control_unit of control_unit is
           MDRinEnable , MARinEnable ,
           busA , busB , busC,
           rst ,
-          IR  ,
           flagRegEnable,
           isCarryInstruction,
-          flagRegOut
+          flagRegOut,
+          IR
         );
     myMPC : entity work.mpc generic map(n) port map( mpcRst , clkNormal , external , externalAddress , addressCW );
     myRom : entity work.real_rom port map( romRead , addressCW(7 downto 0) , CW  );

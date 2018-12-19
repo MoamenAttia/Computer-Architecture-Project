@@ -13,10 +13,10 @@ Entity myProcessor is
            MDRinEnable , MARinEnable : in std_logic;
            busA , busB , busC : inout std_logic_vector(n-1 downto 0);
            rst : in std_logic_vector(15 downto 0);   -- 16 registers
-           IRR : in std_logic_vector(n-1 downto 0);
            flagRegEnable : in std_logic;
            isCarryInstruction : in std_logic;
-           flagRegOut : inout std_logic_vector(n-1 downto 0)
+           flagRegOut : inout std_logic_vector(n-1 downto 0);
+           IROut : inout std_logic_vector(n-1 downto 0)
         );
 End myProcessor;
 
@@ -24,11 +24,9 @@ Architecture a_myProcessor of myProcessor is
     signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut , offsetIROut : std_logic_vector(n-1 downto 0);
     signal readBus , tempCarryOut : std_logic := '1';
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
-    signal IROut : std_logic_vector(n-1 downto 0);
     signal controlWord : std_logic_vector(24 downto 0);
     signal carryIn : std_logic;
     begin
-    IRout <= IRR;
     decoder_dist  : entity work.decoder4x16 port map ( decoder_dist_selector , dist_enable , decoder_dist_enable );    -- elly gaylak mn el left
     decoder_srcA  : entity work.decoder4x16 port map ( decoder_srcA_selector  , srcA_enable  , decoder_srcA_enable  );    -- elly raye7 3la tri_state elly btro7 l bus A
     decoder_srcB  : entity work.decoder4x16 port map ( decoder_srcB_selector  , srcB_enable  , decoder_srcB_enable  );    -- elly raye7 3la tri_state elly btro7 l bus B
@@ -97,7 +95,7 @@ Architecture a_myProcessor of myProcessor is
     myALU : entity work.ALU generic map( n ) port map( busA , busB , aluSelector , carryIn , busC , tempCarryOut );
 
     readBus <= '0' when readMem='1' else MDRinEnable;
-    offsetIRout <= "00000"&IRR(10 downto 0);
+    offsetIRout <= "00000"&IRout(10 downto 0);
     
     carryIn <= aluCarryIn when isCarryInstruction = '0'
 	 else flagRegOut(0);
