@@ -12,17 +12,19 @@ Entity myProcessor is
            TempXinEnable , TempYinEnable : in std_logic;
            MDRinEnable , MARinEnable : in std_logic;
            busA , busB , busC : inout std_logic_vector(n-1 downto 0);
-           rst : in std_logic_vector(15 downto 0)   -- 16 registers
+           rst : in std_logic_vector(15 downto 0);   -- 16 registers
+           IRR : in std_logic_vector(n-1 downto 0)
         );
 End myProcessor;
 
 Architecture a_myProcessor of myProcessor is
-    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut ,  flagRegOut , IRout , offsetIROut : std_logic_vector(n-1 downto 0);
+    signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut ,  flagRegOut , offsetIROut : std_logic_vector(n-1 downto 0);
     signal readBus , tempCarryOut , flagRegEnable : std_logic := '1';
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
+    signal IROut : std_logic_vector(n-1 downto 0);
     signal controlWord : std_logic_vector(24 downto 0);
     begin
-
+    IRout <= IRR;
     decoder_dist  : entity work.decoder4x16 port map ( decoder_dist_selector , dist_enable , decoder_dist_enable );    -- elly gaylak mn el left
     decoder_srcA  : entity work.decoder4x16 port map ( decoder_srcA_selector  , srcA_enable  , decoder_srcA_enable  );    -- elly raye7 3la tri_state elly btro7 l bus A
     decoder_srcB  : entity work.decoder4x16 port map ( decoder_srcB_selector  , srcB_enable  , decoder_srcB_enable  );    -- elly raye7 3la tri_state elly btro7 l bus B
@@ -44,7 +46,7 @@ Architecture a_myProcessor of myProcessor is
 
     myFlagReg  : entity work.flagReg generic map (n) port map ( clkNormal , rst(13) , flagRegEnable , tempCarryOut , busA , busB , busC , flagRegOut );
 
-    IR_Register : entity work.nDFF generic map(n) port map ( clkNormal , rst(14) , IRinEnable , busC , IROut);
+    -- IR_Register : entity work.nDFF generic map(n) port map ( clkNormal , rst(14) , IRinEnable , busC , IROut);
 
     myRama : entity work.real_ram generic map( n , ramSize , MarAddressSize  ) port map ( clkRam , writeMem , MAROut , MDROut , dataMemory ) ;
 
@@ -67,6 +69,9 @@ Architecture a_myProcessor of myProcessor is
     tri_state_R5_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(5) , R5Out , busA );
     tri_state_R5_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(5) , R5Out , busB );
 
+
+
+
     tri_state_R6_BusA : entity work.tri_state generic map(n) port map ( srcA_R6Enable , R6Out , busA );
     tri_state_R6_BusB : entity work.tri_state generic map(n) port map ( srcB_R6Enable , R6Out , busB );
 
@@ -85,14 +90,15 @@ Architecture a_myProcessor of myProcessor is
     tri_state_flagReg_BusA  : entity work.tri_state generic map(n) port map ( srcA_enable(13) , flagRegOut , busA );
     tri_state_flagReg_BusB  : entity work.tri_state generic map(n) port map ( srcB_enable(13) , flagRegOut , busB );
 
-    tri_state_IR_Register_BusA : entity work.tri_state generic map(n) port map ( srcA_IRoutEnable , offsetIROut , busA );
-    tri_state_IR_Register_BusB : entity work.tri_state generic map(n) port map ( srcB_IRoutEnable , offsetIROut , busB );
+    tri_state_IR_Register_BusA : entity work.tri_state generic map(n) port map ( srcA_IRoutEnable , offsetIRout , busA );
+    tri_state_IR_Register_BusB : entity work.tri_state generic map(n) port map ( srcB_IRoutEnable , offsetIRout , busB );
 
     myALU : entity work.ALU generic map( n ) port map( busA , busB , aluSelector , aluCarryIn , busC , tempCarryOut );
 
     readBus <= '0' when readMem='1' else MDRinEnable;
 
-    offsetIROut <= "0000011111111111" and IROut when srcA_enable(14) = '1' or srcB_enable(14) = '1';
+    offsetIRout <= "00000"&IRR(10 downto 0);
     flagRegEnable <= '1';
-    
 End a_myProcessor;
+
+

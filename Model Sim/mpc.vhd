@@ -1,5 +1,5 @@
 LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.std_logic_1164.all;
 USE IEEE.numeric_std.ALL;
 
 Entity mpc is
@@ -19,7 +19,7 @@ Architecture a_mpc of mpc is
           q <= (others=>'0');
         elsif external = '1' then
             q <= d;
-        elsif rising_edge(clk) and external = '0' then
+          elsif rising_edge(clk) and external = '0' then
           q <= std_logic_vector(unsigned(q) + 1);
         end if;
       end process;

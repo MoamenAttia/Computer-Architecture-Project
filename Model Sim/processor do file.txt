@@ -1,6 +1,10 @@
 vsim -gui work.control_unit
 add wave -position insertpoint sim:/control_unit/*
 
+
+add wave -position end  sim:/control_unit/myProcessorElGamed/tempRegYOut
+add wave -position end  sim:/control_unit/myProcessorElGamed/R7Out
+
 mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(0)
 mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(1)
 mem load -filltype value -filldata 0111000010100000000000000 -fillradix binary /control_unit/myRom/myROM(2)
@@ -141,37 +145,85 @@ mem load -filltype value -filldata 0110000001000000000000010 -fillradix binary /
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(137)
 mem load -filltype value -filldata 0110000000000010000101010 -fillradix binary /control_unit/myRom/myROM(138)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(139)
-mem load -filltype value -filldata 0110000001000000000000010 -fillradix binary /control_unit/myRom/myROM(140)
+mem load -filltype value -filldata 0110000001000000011000000 -fillradix binary /control_unit/myRom/myROM(140)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(141)
-mem load -filltype value -filldata 0110000000000010000101010 -fillradix binary /control_unit/myRom/myROM(142)
+mem load -filltype value -filldata 0110000000000010011101000 -fillradix binary /control_unit/myRom/myROM(142)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(143)
 mem load -filltype value -filldata 1000000010000000000000000 -fillradix binary /control_unit/myRom/myROM(144)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(145)
 
-
-mem load -filltype value -filldata 0091 -fillradix hexadecimal /control_unit/myProcessorElGamed/myRama/myRam(0)
-
+# force -freeze sim:/control_unit/busA 0101 0
+force -freeze sim:/control_unit/aluCarryIn 0 0
+force -freeze sim:/control_unit/mpcRst 0 0
+force -freeze sim:/control_unit/decoder_dist_enable 0 0
+force -freeze sim:/control_unit/decoder_srcB_enable 0 0
+force -freeze sim:/control_unit/decoder_srcA_enable 0 0
 force -freeze sim:/control_unit/clkRam 1 0, 0 {50 ps} -r 100
 force -freeze sim:/control_unit/clkNormal 0 0, 1 {50 ps} -r 100
+force -freeze sim:/control_unit/readMem 0 0
+force -freeze sim:/control_unit/writeMem 0 0
+force -freeze sim:/control_unit/decoder_dist_selector 0 0
+force -freeze sim:/control_unit/decoder_srcB_selector 0000 0
+force -freeze sim:/control_unit/decoder_srcA_selector 0 0
+force -freeze sim:/control_unit/aluSelector 0 0
+force -freeze sim:/control_unit/srcA_R6Enable 0 0
+force -freeze sim:/control_unit/srcA_R7Enable 0 0
+force -freeze sim:/control_unit/srcA_TempXEnable 0 0
+force -freeze sim:/control_unit/srcA_TempYEnable 0 0
+force -freeze sim:/control_unit/srcA_MDRoutEnable 0 0
+force -freeze sim:/control_unit/srcA_IRoutEnable 0 0
+force -freeze sim:/control_unit/srcB_R6Enable 0 0
+force -freeze sim:/control_unit/srcB_R7Enable 0 0
+force -freeze sim:/control_unit/srcB_TempXEnable 0 0
+force -freeze sim:/control_unit/srcB_TempYEnable 0 0
+force -freeze sim:/control_unit/srcB_MDRoutEnable 0 0
+force -freeze sim:/control_unit/srcB_IRoutEnable 0 0
+force -freeze sim:/control_unit/R6InEnable 0 0
+force -freeze sim:/control_unit/R7InEnable 0 0
+force -freeze sim:/control_unit/IRinEnable 0 0
+force -freeze sim:/control_unit/TempXinEnable 0 0
+force -freeze sim:/control_unit/TempYinEnable 0 0
+force -freeze sim:/control_unit/MDRinEnable 0 0
+force -freeze sim:/control_unit/MARinEnable 0 0
+force -freeze sim:/control_unit/rst 0000 0
+force -freeze sim:/control_unit/externalAddress 0003 0
+force -freeze sim:/control_unit/addressROM 00 0
+force -freeze sim:/control_unit/romRead 0 0
+force -freeze sim:/control_unit/external 1 0
 force -freeze sim:/control_unit/IR C00F 0
-
-add wave -position insertpoint sim:/control_unit/myProcessorElGamed/R7out
-force -freeze sim:/control_unit/myProcessorElGamed/R7out 1002 0
-force -freeze sim:/control_unit/addressROM 0003 0
 run
-noforce sim:/control_unit/myProcessorElGamed/R7out
-
-
-force -freeze sim:/control_unit/addressROM 0091 0
-force -freeze sim:/control_unit/IR 0000 0
-run
-run
-
+noforce sim:/control_unit/external 0 0
+force -freeze sim:/control_unit/romRead 1 0
+noforce sim:/control_unit/decoder_srcA_enable
+noforce sim:/control_unit/decoder_srcB_enable
+noforce sim:/control_unit/decoder_dist_enable
+noforce sim:/control_unit/aluCarryIn
+noforce sim:/control_unit/writeMem
+noforce sim:/control_unit/readMem
+noforce sim:/control_unit/decoder_srcA_selector
+noforce sim:/control_unit/decoder_srcB_selector
+noforce sim:/control_unit/decoder_dist_selector
+noforce sim:/control_unit/aluSelector
+noforce sim:/control_unit/srcA_R6Enable
+noforce sim:/control_unit/srcA_R7Enable
+noforce sim:/control_unit/srcA_TempXEnable
+noforce sim:/control_unit/srcA_TempYEnable
+noforce sim:/control_unit/srcA_MDRoutEnable
+noforce sim:/control_unit/srcA_IRoutEnable
+noforce sim:/control_unit/srcB_R6Enable
+noforce sim:/control_unit/srcB_R7Enable
+noforce sim:/control_unit/srcB_TempXEnable
+noforce sim:/control_unit/srcB_TempYEnable
+noforce sim:/control_unit/srcB_MDRoutEnable
+noforce sim:/control_unit/srcB_IRoutEnable
+noforce sim:/control_unit/R6InEnable
+noforce sim:/control_unit/R7InEnable
+noforce sim:/control_unit/IRinEnable
+noforce sim:/control_unit/TempXinEnable
+noforce sim:/control_unit/TempYinEnable
+noforce sim:/control_unit/MDRinEnable
+noforce sim:/control_unit/MARinEnable
+noforce sim:/control_unit/externalAddress
+noforce sim:/control_unit/addressCW
 noforce sim:/control_unit/addressROM
-noforce sim:/control_unit/IR
-force -freeze sim:/control_unit/pcAddressExternal 0000 0
 run
-noforce sim:/control_unit/pcAddressExternal
-run
-run
-
