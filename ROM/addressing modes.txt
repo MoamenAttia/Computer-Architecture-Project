@@ -87,6 +87,12 @@ MDRoutA RdistoutB ADD MARin Read WMFC
 MDRoutA TransferA MARin Read WMFC
 MDRoutA TransferA Yin
 
+# MOV Src , Dest  if Dest is Register Mode
+XoutA TransferA RdistIn
+
+# MOV Src , Dest  if Dest is Memory
+XoutA TransferA MDRin Write WMFC
+
 # Add Src , Dest  if Dest is Register Mode
 XoutA YoutB ADD RdistIn
 
@@ -182,4 +188,19 @@ YoutA CLR RdistIn
 
 # CLR Dest if Dest is Register
 YoutA CLR MDRin Write WMFC
+
+# INC Dest if Dest is Register
+YoutA IncA RdistIn
+
+# INC Dest if Dest Memory 
+YoutA IncA MDRin write WMFC
+
+# DEC Dest if Dest is Register
+YoutA DecA RdistIn
+
+# DEC Dest if Dest Memory
+YoutA DecA MDRin write WMFC
+
+# BR Label
+IRoutA TransferA PCIN
 

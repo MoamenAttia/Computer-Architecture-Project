@@ -17,5 +17,6 @@ architecture a_partD of partD is
         Else  A(n-2 downto 0)&A(n-1)   when S="1101"
         Else  A(n-2 downto 0)&Cin     when S="1110"
         Else  (others=>'0')          when S="1111";
-		Cout <= A(n-1);
+        Cout <= '0' when S="1111"
+            else A(n-1); 
     end a_partD;
