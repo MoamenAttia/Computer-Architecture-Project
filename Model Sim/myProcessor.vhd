@@ -67,9 +67,6 @@ Architecture a_myProcessor of myProcessor is
     tri_state_R5_BusA : entity work.tri_state generic map(n) port map ( srcA_enable(5) , R5Out , busA );
     tri_state_R5_BusB : entity work.tri_state generic map(n) port map ( srcB_enable(5) , R5Out , busB );
 
-
-
-
     tri_state_R6_BusA : entity work.tri_state generic map(n) port map ( srcA_R6Enable , R6Out , busA );
     tri_state_R6_BusB : entity work.tri_state generic map(n) port map ( srcB_R6Enable , R6Out , busB );
 
@@ -97,4 +94,5 @@ Architecture a_myProcessor of myProcessor is
 
     offsetIROut <= "0000011111111111" and IROut when srcA_enable(14) = '1' or srcB_enable(14) = '1';
     flagRegEnable <= '1';
+    
 End a_myProcessor;

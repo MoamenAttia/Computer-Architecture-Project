@@ -55,6 +55,7 @@ typedef vector<vector<ii>> vvii;
 typedef vector<vector<il>> vvil;
 string str, cw, mySignal;
 map<string, string> myMap;
+// C00F
 int main()
 {
 	// Two Operand
@@ -79,7 +80,7 @@ int main()
 	myMap["RLC"] = "0000000000000001110000001";
 	myMap["ASR"] = "0000000000000001011000000";
 	
-
+	myMap["IROUTA"] = "1000000010000000000000000";
 	myMap["IRIN"] = "0000000010100000000000000";
 	myMap["MARIN"] = "0000000000000100000000000";
 	myMap["MDROUTA"] = "0111000000000000000000000";

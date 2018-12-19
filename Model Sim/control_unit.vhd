@@ -32,12 +32,26 @@ Architecture a_control_unit of control_unit is
   Begin
     process(clkNormal)
       Begin
-        external <= '0';
+          external <= '0';
+          decoder_srcA_enable <= '0'; decoder_srcB_enable <= '0'; decoder_dist_enable <= '0';
+          srcA_R6Enable <= '0'; srcA_R7Enable <= '0'; srcA_TempXEnable <= '0'; srcA_TempYEnable <= '0'; srcA_MDRoutEnable <= '0'; srcA_IRoutEnable <= '0';
+          srcB_R6Enable <= '0'; srcB_R7Enable <= '0'; srcB_TempXEnable <= '0'; srcB_TempYEnable <= '0'; srcB_MDRoutEnable <= '0'; srcB_IRoutEnable <= '0';
+          R6InEnable <= '0'; R7InEnable <= '0'; IRinEnable <= '0';
+          TempXinEnable <= '0'; TempYinEnable <= '0';
+          MDRinEnable <= '0'; MARinEnable <= '0';
+          external <= '0';
         if(rising_edge(clkNormal) and CW = "0000000000000000000000000") then
               external <= '1';
+               -- Branches Instructtions
+              if ( addInt = 3  and IR(15 downto 14) = "11" ) then
+                -- BR
+                if ( IR(13 downto 11) = "000" ) then
+                  externalAddress <= std_logic_vector( to_unsigned( 144 , externalAddress'length ));
+                  R7InEnable <= '1';
+                end if ;
 
               -- if two operand and after fetching the IR -- Ro7 Geeb EL SOURCE.
-              if ((addInt = 3 and IR(15) = '0') or (IR(15 downto 12) = "1000") ) then
+              elsif ((addInt = 3 and IR(15) = '0') or (IR(15 downto 12) = "1000") ) then
                     if(IR( 11 downto 9 ) = "000") then
                       externalAddress <= std_logic_vector( to_unsigned( 4 , externalAddress'length ));  
                     elsif(IR( 11 downto 9 ) = "001") then
@@ -193,20 +207,14 @@ Architecture a_control_unit of control_unit is
                   elsif ( IR(15 downto 12) = "1001" and IR(11 downto 8) = "1010" ) then
                     externalAddress <= std_logic_vector( to_unsigned( 130 , externalAddress'length ));
                   end if;
-              
+                    
               -- if instruction exectued then mpc = 0000
-              elsif( addInt = 73 or addInt = 75 or addInt = 77 or addInt = 79 or addInt = 81 or addInt = 83 or addInt = 85 or addInt = 87 or addInt = 89 or addInt = 91  or addInt = 93 or addInt = 95 or addInt = 97 or addInt = 99 or addInt = 101 or addInt = 103 or addInt = 105 or addInt = 107 or addInt = 109 or addInt = 111 or addInt = 113 or addInt = 115 or addInt = 117 or addInt = 119 or addInt = 121 or addInt = 123 or addInt = 125 or addInt = 127 or addInt = 129 or addInt = 131 or addInt = 133 or addInt = 135 or addInt = 137 or addInt = 139 or addInt = 141 or addInt = 143) then
+              elsif( addInt = 73 or addInt = 75 or addInt = 77 or addInt = 79 or addInt = 81 or addInt = 83 or addInt = 85 or addInt = 87 or addInt = 89 or addInt = 91  or addInt = 93 or addInt = 95 or addInt = 97 or addInt = 99 or addInt = 101 or addInt = 103 or addInt = 105 or addInt = 107 or addInt = 109 or addInt = 111 or addInt = 113 or addInt = 115 or addInt = 117 or addInt = 119 or addInt = 121 or addInt = 123 or addInt = 125 or addInt = 127 or addInt = 129 or addInt = 131 or addInt = 133 or addInt = 135 or addInt = 137 or addInt = 139 or addInt = 141 or addInt = 143 or addInt = 145) then
                 externalAddress <= std_logic_vector( to_unsigned( 3 , externalAddress'length )); 
               end if;
                 
         elsif(rising_edge(clkNormal)) then
-          external <= '0';
-          decoder_srcA_enable <= '0'; decoder_srcB_enable <= '0'; decoder_dist_enable <= '0';
-          srcA_R6Enable <= '0'; srcA_R7Enable <= '0'; srcA_TempXEnable <= '0'; srcA_TempYEnable <= '0'; srcA_MDRoutEnable <= '0'; srcA_IRoutEnable <= '0';
-          srcB_R6Enable <= '0'; srcB_R7Enable <= '0'; srcB_TempXEnable <= '0'; srcB_TempYEnable <= '0'; srcB_MDRoutEnable <= '0'; srcB_IRoutEnable <= '0';
-          R6InEnable <= '0'; R7InEnable <= '0'; IRinEnable <= '0';
-          TempXinEnable <= '0'; TempYinEnable <= '0';
-          MDRinEnable <= '0'; MARinEnable <= '0';
+          
           -- to write on busA
           if( CW(24 downto 21) = "0000") then
               decoder_srcA_enable <= '0'; -- do nothing
@@ -379,4 +387,4 @@ end a_control_unit;
 -- 138 -> # INC Dest if Dest Memory 
 -- 140 -> # DEC Dest if Dest is Register
 -- 142 -> # DEC Dest if Dest Memory
-
+-- 144 -> # BR Offset

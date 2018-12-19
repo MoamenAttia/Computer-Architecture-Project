@@ -1,5 +1,8 @@
 vsim -gui work.control_unit
 add wave -position insertpoint sim:/control_unit/*
+add wave -position end  sim:/control_unit/myProcessorElGamed/tempRegYOut
+add wave -position end  sim:/control_unit/myProcessorElGamed/RoOut
+
 
 mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(0)
 mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(1)
@@ -141,10 +144,12 @@ mem load -filltype value -filldata 0110000001000000000000010 -fillradix binary /
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(137)
 mem load -filltype value -filldata 0110000000000010000101010 -fillradix binary /control_unit/myRom/myROM(138)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(139)
-mem load -filltype value -filldata 0110000001000000011000000 -fillradix binary /control_unit/myRom/myROM(140)
+mem load -filltype value -filldata 0110000001000000000000010 -fillradix binary /control_unit/myRom/myROM(140)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(141)
-mem load -filltype value -filldata 0110000000000010011101000 -fillradix binary /control_unit/myRom/myROM(142)
+mem load -filltype value -filldata 0110000000000010000101010 -fillradix binary /control_unit/myRom/myROM(142)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(143)
+mem load -filltype value -filldata 1000000010000000000000000 -fillradix binary /control_unit/myRom/myROM(144)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(145)
 
 # force -freeze sim:/control_unit/busA 0101 0
 force -freeze sim:/control_unit/aluCarryIn 0 0
@@ -184,7 +189,7 @@ force -freeze sim:/control_unit/externalAddress 0003 0
 force -freeze sim:/control_unit/addressROM 00 0
 force -freeze sim:/control_unit/romRead 0 0
 force -freeze sim:/control_unit/external 1 0
-force -freeze sim:/control_unit/IR 9200 0
+force -freeze sim:/control_unit/IR C00F 0
 run
 noforce sim:/control_unit/external 0 0
 force -freeze sim:/control_unit/romRead 1 0
