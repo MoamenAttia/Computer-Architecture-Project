@@ -1,0 +1,265 @@
+vsim -gui work.control_unit
+# vsim 
+# Start time: 06:29:20 on Dec 20,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.math_real(body)
+# Loading work.control_unit(a_control_unit)
+# Loading work.myprocessor(a_myprocessor)
+# Loading work.decoder4x16(a_decoder4x16)
+# Loading work.ndff(a_ndff)
+# Loading work.dff(a_dff)
+# Loading work.mar(a_mar)
+# Loading work.mdr(a_mdr)
+# Loading work.flagreg(a_flagreg)
+# Loading work.real_ram(a_ram)
+# Loading work.tri_state(a_tri_state)
+# Loading work.alu(a_alu)
+# Loading work.parta(a_parta)
+# Loading work.my_nadder(a_my_nadder)
+# Loading work.my_adder(a_my_adder)
+# Loading work.partb(a_partb)
+# Loading work.partc(a_partc)
+# Loading work.partd(a_partd)
+# Loading work.mpc(a_mpc)
+# Loading work.real_rom(a_rom)
+# ** Warning: Design size of 14024 statements or 257 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+add wave -position insertpoint  \
+sim:/control_unit/n \
+sim:/control_unit/clkNormal \
+sim:/control_unit/clkRam \
+sim:/control_unit/busA \
+sim:/control_unit/busB \
+sim:/control_unit/busC \
+sim:/control_unit/rst \
+sim:/control_unit/external \
+sim:/control_unit/mpcRst \
+sim:/control_unit/romRead \
+sim:/control_unit/decoder_srcA_enable \
+sim:/control_unit/decoder_srcB_enable \
+sim:/control_unit/decoder_dist_enable \
+sim:/control_unit/aluCarryIn \
+sim:/control_unit/writeMem \
+sim:/control_unit/readMem \
+sim:/control_unit/decoder_srcA_selector \
+sim:/control_unit/decoder_srcB_selector \
+sim:/control_unit/decoder_dist_selector \
+sim:/control_unit/aluSelector \
+sim:/control_unit/srcA_R6Enable \
+sim:/control_unit/srcA_R7Enable \
+sim:/control_unit/srcA_TempXEnable \
+sim:/control_unit/srcA_TempYEnable \
+sim:/control_unit/srcA_MDRoutEnable \
+sim:/control_unit/srcA_IRoutEnable \
+sim:/control_unit/srcB_R6Enable \
+sim:/control_unit/srcB_R7Enable \
+sim:/control_unit/srcB_TempXEnable \
+sim:/control_unit/srcB_TempYEnable \
+sim:/control_unit/srcB_MDRoutEnable \
+sim:/control_unit/srcB_IRoutEnable \
+sim:/control_unit/R6InEnable \
+sim:/control_unit/R7InEnable \
+sim:/control_unit/IRinEnable \
+sim:/control_unit/TempXinEnable \
+sim:/control_unit/TempYinEnable \
+sim:/control_unit/flagRegOut \
+sim:/control_unit/IR \
+sim:/control_unit/MDRinEnable \
+sim:/control_unit/MARinEnable \
+sim:/control_unit/flagRegEnable \
+sim:/control_unit/isCarryInstruction \
+sim:/control_unit/externalAddress \
+sim:/control_unit/addressCW \
+sim:/control_unit/addressROM \
+sim:/control_unit/CW \
+sim:/control_unit/addInt
+force -freeze sim:/control_unit/clkNormal 0 0, 1 {50 ns} -r 100
+force -freeze sim:/control_unit/clkRam 1 0, 0 {50 ns} -r 100
+mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(0)
+mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(1)
+mem load -filltype value -filldata 0111000010100000000000000 -fillradix binary /control_unit/myRom/myROM(2)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(3)
+mem load -filltype value -filldata 0001000000001000000000000 -fillradix binary /control_unit/myRom/myROM(4)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(5)
+mem load -filltype value -filldata 0001000000000100000000100 -fillradix binary /control_unit/myRom/myROM(6)
+mem load -filltype value -filldata 0001000000100000000100010 -fillradix binary /control_unit/myRom/myROM(7)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(8)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(9)
+mem load -filltype value -filldata 0001000000100000011000000 -fillradix binary /control_unit/myRom/myROM(10)
+mem load -filltype value -filldata 0001000000000100000100100 -fillradix binary /control_unit/myRom/myROM(11)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(12)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(13)
+mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(14)
+mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(15)
+mem load -filltype value -filldata 0111000100000100001100100 -fillradix binary /control_unit/myRom/myROM(16)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(17)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(18)
+mem load -filltype value -filldata 0001000000000100000100100 -fillradix binary /control_unit/myRom/myROM(19)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(20)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(21)
+mem load -filltype value -filldata 0001000000000100000000100 -fillradix binary /control_unit/myRom/myROM(22)
+mem load -filltype value -filldata 0001000000100000000100010 -fillradix binary /control_unit/myRom/myROM(23)
+mem load -filltype value -filldata 0111000000000100000100100 -fillradix binary /control_unit/myRom/myROM(24)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(25)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(26)
+mem load -filltype value -filldata 0001000001000000011000000 -fillradix binary /control_unit/myRom/myROM(27)
+mem load -filltype value -filldata 0001000000000100000100100 -fillradix binary /control_unit/myRom/myROM(28)
+mem load -filltype value -filldata 0111000000000100000100100 -fillradix binary /control_unit/myRom/myROM(29)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(30)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(31)
+mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(32)
+mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(33)
+mem load -filltype value -filldata 0111000100000100001100100 -fillradix binary /control_unit/myRom/myROM(34)
+mem load -filltype value -filldata 0111000000000100000100100 -fillradix binary /control_unit/myRom/myROM(35)
+mem load -filltype value -filldata 0111000000001000000000000 -fillradix binary /control_unit/myRom/myROM(36)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(37)
+mem load -filltype value -filldata 0010000000010000000000000 -fillradix binary /control_unit/myRom/myROM(38)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(39)
+mem load -filltype value -filldata 0010000000000100000000100 -fillradix binary /control_unit/myRom/myROM(40)
+mem load -filltype value -filldata 0010000001000000000100010 -fillradix binary /control_unit/myRom/myROM(41)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(42)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(43)
+mem load -filltype value -filldata 0010000001000000011000000 -fillradix binary /control_unit/myRom/myROM(44)
+mem load -filltype value -filldata 0010000000000100000100100 -fillradix binary /control_unit/myRom/myROM(45)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(46)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(47)
+mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(48)
+mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(49)
+mem load -filltype value -filldata 0111001000000100001100100 -fillradix binary /control_unit/myRom/myROM(50)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(51)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(52)
+mem load -filltype value -filldata 0010000000000100000100100 -fillradix binary /control_unit/myRom/myROM(53)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(54)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(55)
+mem load -filltype value -filldata 0010000000000100000000100 -fillradix binary /control_unit/myRom/myROM(56)
+mem load -filltype value -filldata 0010000001000000000100010 -fillradix binary /control_unit/myRom/myROM(57)
+mem load -filltype value -filldata 0111000000000100000100100 -fillradix binary /control_unit/myRom/myROM(58)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(59)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(60)
+mem load -filltype value -filldata 0010000001000000011000000 -fillradix binary /control_unit/myRom/myROM(61)
+mem load -filltype value -filldata 0010000000000100000100100 -fillradix binary /control_unit/myRom/myROM(62)
+mem load -filltype value -filldata 0111000000000100000100100 -fillradix binary /control_unit/myRom/myROM(63)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(64)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(65)
+mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(66)
+mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(67)
+mem load -filltype value -filldata 0111001000000100001100100 -fillradix binary /control_unit/myRom/myROM(68)
+mem load -filltype value -filldata 0111000000000100000100100 -fillradix binary /control_unit/myRom/myROM(69)
+mem load -filltype value -filldata 0111000000010000000000000 -fillradix binary /control_unit/myRom/myROM(70)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(71)
+mem load -filltype value -filldata 0101000001000000000000000 -fillradix binary /control_unit/myRom/myROM(72)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(73)
+mem load -filltype value -filldata 0101000000000010000101000 -fillradix binary /control_unit/myRom/myROM(74)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(75)
+mem load -filltype value -filldata 0101011001000000001000000 -fillradix binary /control_unit/myRom/myROM(76)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(77)
+mem load -filltype value -filldata 0101011000000010001101000 -fillradix binary /control_unit/myRom/myROM(78)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(79)
+mem load -filltype value -filldata 0101011001000000001000001 -fillradix binary /control_unit/myRom/myROM(80)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(81)
+mem load -filltype value -filldata 0101011000000010001101001 -fillradix binary /control_unit/myRom/myROM(82)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(83)
+mem load -filltype value -filldata 0101011001000000010000000 -fillradix binary /control_unit/myRom/myROM(84)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(85)
+mem load -filltype value -filldata 0101011000000010010101000 -fillradix binary /control_unit/myRom/myROM(86)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(87)
+mem load -filltype value -filldata 0101011001000000010000001 -fillradix binary /control_unit/myRom/myROM(88)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(89)
+mem load -filltype value -filldata 0101011000000010010101001 -fillradix binary /control_unit/myRom/myROM(90)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(91)
+mem load -filltype value -filldata 0101011001000000100000000 -fillradix binary /control_unit/myRom/myROM(92)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(93)
+mem load -filltype value -filldata 0101011000000010001101000 -fillradix binary /control_unit/myRom/myROM(94)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(95)
+mem load -filltype value -filldata 0101011001000000101000000 -fillradix binary /control_unit/myRom/myROM(96)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(97)
+mem load -filltype value -filldata 0101011000000010101101000 -fillradix binary /control_unit/myRom/myROM(98)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(99)
+mem load -filltype value -filldata 0101011001000000110000000 -fillradix binary /control_unit/myRom/myROM(100)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(101)
+mem load -filltype value -filldata 0101011000000010110101000 -fillradix binary /control_unit/myRom/myROM(102)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(103)
+mem load -filltype value -filldata 0110000001000000111000000 -fillradix binary /control_unit/myRom/myROM(104)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(105)
+mem load -filltype value -filldata 0110000000000010111101000 -fillradix binary /control_unit/myRom/myROM(106)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(107)
+mem load -filltype value -filldata 0110000001000001100000000 -fillradix binary /control_unit/myRom/myROM(108)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(109)
+mem load -filltype value -filldata 0110000000000011100101000 -fillradix binary /control_unit/myRom/myROM(110)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(111)
+mem load -filltype value -filldata 0110000001000001000000000 -fillradix binary /control_unit/myRom/myROM(112)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(113)
+mem load -filltype value -filldata 0110000000000011000101000 -fillradix binary /control_unit/myRom/myROM(114)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(115)
+mem load -filltype value -filldata 0110000001000001001000000 -fillradix binary /control_unit/myRom/myROM(116)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(117)
+mem load -filltype value -filldata 0110000000000011001101000 -fillradix binary /control_unit/myRom/myROM(118)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(119)
+mem load -filltype value -filldata 0110000001000001101000000 -fillradix binary /control_unit/myRom/myROM(120)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(121)
+mem load -filltype value -filldata 0110000000000011101101000 -fillradix binary /control_unit/myRom/myROM(122)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(123)
+mem load -filltype value -filldata 0110000001000001011000000 -fillradix binary /control_unit/myRom/myROM(124)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(125)
+mem load -filltype value -filldata 0110000000000011011101000 -fillradix binary /control_unit/myRom/myROM(126)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(127)
+mem load -filltype value -filldata 0110000001000001010000001 -fillradix binary /control_unit/myRom/myROM(128)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(129)
+mem load -filltype value -filldata 0110000000000011010101001 -fillradix binary /control_unit/myRom/myROM(130)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(131)
+mem load -filltype value -filldata 0110000001000001110000001 -fillradix binary /control_unit/myRom/myROM(132)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(133)
+mem load -filltype value -filldata 0110000000000011110101001 -fillradix binary /control_unit/myRom/myROM(134)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(135)
+mem load -filltype value -filldata 0110000001000001111000000 -fillradix binary /control_unit/myRom/myROM(136)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(137)
+mem load -filltype value -filldata 0110000000000011111101000 -fillradix binary /control_unit/myRom/myROM(138)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(139)
+mem load -filltype value -filldata 0110000001000000000000010 -fillradix binary /control_unit/myRom/myROM(140)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(141)
+mem load -filltype value -filldata 0110000000000010000101010 -fillradix binary /control_unit/myRom/myROM(142)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(143)
+mem load -filltype value -filldata 0110000001000000011000000 -fillradix binary /control_unit/myRom/myROM(144)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(145)
+mem load -filltype value -filldata 0110000000000010011101000 -fillradix binary /control_unit/myRom/myROM(146)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(147)
+mem load -filltype value -filldata 1000000010000000000000000 -fillradix binary /control_unit/myRom/myROM(148)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(149)
+mem load -filltype value -filldata {1001001000000000 } -fillradix binary /control_unit/myProcessorElGamed/myRama/myRam(0)
+mem load -filltype value -filldata {1001001000000001 } -fillradix binary /control_unit/myProcessorElGamed/myRama/myRam(1)
+force -freeze sim:/control_unit/rst 4080 0
+force -freeze sim:/control_unit/mpcRst 1 0
+force -freeze sim:/control_unit/romRead 1 0
+run
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /control_unit/myRom
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /control_unit/myProcessorElGamed/myRama
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /control_unit
+force -freeze sim:/control_unit/rst 0000 0
+force -freeze sim:/control_unit/mpcRst 0 0
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
