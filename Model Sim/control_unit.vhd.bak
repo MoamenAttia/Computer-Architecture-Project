@@ -31,7 +31,7 @@ Architecture a_control_unit of control_unit is
   Begin
     process(clkNormal , CW , clkRam , flagRegEnable , aluSelector)
       Begin
-        if(rising_edge(clkNormal)) then
+        if(rising_edge(clkNormal))
 	  external <= '0';
           decoder_srcA_enable <= '0'; decoder_srcB_enable <= '0'; decoder_dist_enable <= '0';
           srcA_R6Enable <= '0'; srcA_R7Enable <= '0'; srcA_TempXEnable <= '0'; srcA_TempYEnable <= '0'; srcA_MDRoutEnable <= '0'; srcA_IRoutEnable <= '0';

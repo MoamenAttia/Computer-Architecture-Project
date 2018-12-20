@@ -167,8 +167,8 @@ force -freeze sim:/control_unit/rst 0 0
 force -freeze sim:/control_unit/mpcRst 0 0
 force -freeze sim:/control_unit/romRead 0 0
 run
-force -freeze sim:/control_unit/clkRam 1 0, 0 {50 ps} -r 100
-force -freeze sim:/control_unit/clkNormal 0 0, 1 {50 ps} -r 100
+force -freeze sim:/control_unit/clkRam 1 0, 0 {50 ns} -r 100
+force -freeze sim:/control_unit/clkNormal 0 0, 1 {50 ns} -r 100
 run
 
 force -freeze sim:/control_unit/aluCarryIn 0 0
