@@ -23,6 +23,7 @@ End myProcessor;
 Architecture a_myProcessor of myProcessor is
     signal srcA_enable , srcB_enable , dist_enable , RoOut , R1Out , R2Out , R3Out , R4Out , R5Out , R6Out , R7Out , MDROut , dataMemory , tempRegXOut , tempRegYOut , tempRegZOut , offsetIROut : std_logic_vector(n-1 downto 0);
     signal readBus , tempCarryOut : std_logic := '1';
+    signal flags : std_logic_vector(n-1 downto 0) := "0000000000000000" ;
     signal MAROut : std_logic_vector(MarAddressSize-1 downto 0);
     signal controlWord : std_logic_vector(24 downto 0);
     signal carryIn : std_logic;
@@ -45,8 +46,8 @@ Architecture a_myProcessor of myProcessor is
 
     tempRegX : entity work.nDFF generic map (n) port map ( clkNormal , rst(10) , TempXinEnable , busC , tempRegXOut );
     tempRegY : entity work.nDFF generic map (n) port map ( clkNormal , rst(11) , TempYinEnable , busC , tempRegYOut );
-
-    myFlagReg  : entity work.flagReg generic map (n) port map ( clkNormal , rst(13) , flagRegEnable , tempCarryOut , busA , busB , busC , flagRegOut );
+        
+    flagRegister : entity work.nDFF generic map (n) port map ( clkNormal , rst(13) , flagRegEnable , flags , flagRegOut );
 
     IR_Register : entity work.nDFF generic map(n) port map ( clkNormal , rst(14) , IRinEnable , busC , IROut);
 
@@ -75,7 +76,7 @@ Architecture a_myProcessor of myProcessor is
     tri_state_R6_BusB : entity work.tri_state generic map(n) port map ( srcA_enable(6) , R6Out , busB );
 
     tri_state_R7_BusA : entity work.tri_state generic map(n) port map ( srcA_R7Enable , R7Out , busA );
-    tri_state_R7_BusB : entity work.tri_state generic map(n) port map ( srcA_enable(7) , R7Out , busB );
+    tri_state_R7_BusB : entity work.tri_state generic map(n) port map ( srcB_R7Enable  , R7Out , busB );
 
     tri_state_MDR_BusA : entity work.tri_state generic map(n) port map ( srcA_MDRoutEnable , MDROut , busA );
     tri_state_MDR_BusB : entity work.tri_state generic map(n) port map ( srcB_MDRoutEnable , MDROut , busB );
@@ -100,7 +101,13 @@ Architecture a_myProcessor of myProcessor is
     carryIn <= aluCarryIn when isCarryInstruction = '0'
 	 else flagRegOut(0);
     
+    
 
+    flags(0) <= tempCarryOut;
+    flags(1) <= ( not(busA(n-1)) and not(busB(n-1)) and busC(n-1) ) or ( busA(n-1) and busB(n-1) and not(busC(n-1)) );
+    flags(2) <= '1' when busC = X"0000" else '0'; 
+    flags(3) <= busC(n-1);
+    flags(n-1 downto 4) <= (others => '0');
 End a_myProcessor;
 
 

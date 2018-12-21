@@ -1,4 +1,0 @@
-vsim -gui work.myprocessortestbench
-set NumericStdNoWarnings 1
-add wave -position insertpoint sim:/myprocessortestbench/*
-run 100000 ns

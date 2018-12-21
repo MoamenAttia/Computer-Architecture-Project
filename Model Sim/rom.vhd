@@ -14,5 +14,5 @@ Architecture a_rom of real_rom is
     type ramType is array(0 to 255) of std_logic_vector(24 downto 0);
     signal myROM : ramType;
 begin
-    dataOut <= myROM(to_integer(unsigned(address))) when rd = '1' else (others => 'Z');
+    dataOut <= myROM(to_integer(unsigned(address))) when (rd = '1') else (others => 'Z');
 End a_rom;

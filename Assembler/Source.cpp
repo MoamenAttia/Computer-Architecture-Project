@@ -21,11 +21,12 @@
 #include <unordered_map>
 
 using namespace std;
-map<string, string>TwoOp, OneOp, General_Purpose_Register,NoOp,Branch,Bonus;
+map<string, string>TwoOp, OneOp, General_Purpose_Register, NoOp, Branch, Bonus;
 map<string, int>Variables;
 map<char, string>Addressing_Mode;
-string Command, Instruction, IR = "", Op1, Op2,offset,BIN;
-vector<string>Code,Output; vector<int>Address;
+string Command, Instruction, IR = "", Op1, Op2, offset;
+vector < string >Fetch;
+vector<string>Code, Output; vector<int>Address;
 int Insturction_Iterator; bool Assign;
 void init()
 {
@@ -54,7 +55,7 @@ void init()
 	NoOp["HLT"] = "0";
 	NoOp["NOP"] = "1";
 
-	Branch["BR"]  = "000";
+	Branch["BR"] = "000";
 	Branch["BEQ"] = "001";
 	Branch["BNE"] = "010";
 	Branch["BLO"] = "011";
@@ -80,9 +81,9 @@ void init()
 // The following function make all the letters of the command in Capital letters and make spaces between letters.
 void Adjust_command(string& s)
 {
-	if (s.find(';') != -1) 
+	if (s.find(';') != -1)
 		s.erase(s.find(';'));
-	
+
 	for (int i = 0; i<s.size(); ++i)
 	{
 		if (isalpha(s[i])) s[i] = toupper(s[i]);
@@ -92,7 +93,7 @@ void Adjust_command(string& s)
 string Get_Register(string op)
 {
 	string ret = "";
-	for (int i = find(op.begin(),op.end(),'(') - op.begin(); i<op.size(); ++i)
+	for (int i = find(op.begin(), op.end(), '(') - op.begin(); i<op.size(); ++i)
 		if (isdigit(op[i])) {
 			ret += "R";
 			ret += op[i];
@@ -107,13 +108,14 @@ string To_Binary(int x)
 	reverse(ret.begin(), ret.end());
 	return ret;
 }
-void Fetch_Operand(string& op,int address=0)
+void Fetch_Operand(string& op, int address = 0)
 {
-	if (op[0] == '@') op.erase(0,1), IR += '1';
+	string BIN = "";
+	if (op[0] == '@') op.erase(0, 1), IR += '1';
 	else IR += '0';
 
 	char F = op[0]; //First Letter.
-	
+
 	string Register;
 	if (F == 'R') // register direct addressing mode
 	{
@@ -125,25 +127,25 @@ void Fetch_Operand(string& op,int address=0)
 		if (!Assign) return;
 		Register = Get_Register(op);
 	}
-	else if (F == '-' && op[1]=='(') // auto decrement addressing mode
-	{	
+	else if (F == '-' && op[1] == '(') // auto decrement addressing mode
+	{
 		if (!Assign) return;
 		Register = Get_Register(op);
 	}
 	else if (F == '-' || isdigit(F))  // indexed addressing mode with x.
 	{
 		// ATTENTIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN negative conversion to binary should be handled
-		
+
 		Insturction_Iterator++;
 		if (!Assign) return;
-		stringstream x( op.substr(0,find(op.begin(),op.end(),'(') - op.begin()) );
+		stringstream x(op.substr(0, find(op.begin(), op.end(), '(') - op.begin()));
 		int offset;
 		x >> offset;
 		Register = Get_Register(op);
 		F = 'x';
-	
+
 		BIN = To_Binary(abs(offset));
-		BIN = (offset>=0? '0':'1') + BIN;
+		BIN = (offset >= 0 ? '0' : '1') + BIN;
 	}
 	else if (F == '#')
 	{
@@ -165,9 +167,10 @@ void Fetch_Operand(string& op,int address=0)
 	}
 	if (!Assign) return;
 	IR += Addressing_Mode[F];
-	IR += ' ';
+	//IR += ' ';
 	IR += General_Purpose_Register[Register];
-	IR += ' ';
+	//IR += ' ';
+	if(!BIN.empty())Fetch.push_back(BIN);
 }
 void Get_IR(string Command, int address = 0)
 {
@@ -178,11 +181,11 @@ void Get_IR(string Command, int address = 0)
 	{
 		if (Assign) {
 			IR += TwoOp[Instruction];
-			IR += ' ';
+			//IR += ' ';
 		}
 		ss >> Op1, ss >> Op2;
-		Fetch_Operand(Op1,address);
-		Fetch_Operand(Op2,address);
+		Fetch_Operand(Op1, address);
+		Fetch_Operand(Op2, address);
 	}
 	else if (OneOp.count(Instruction))
 	{
@@ -192,7 +195,7 @@ void Get_IR(string Command, int address = 0)
 			ss >> Op1;
 			IR += "xx";
 		}
-		Fetch_Operand(Op1,address);
+		Fetch_Operand(Op1, address);
 
 	}
 	else if (NoOp.count(Instruction))
@@ -200,7 +203,7 @@ void Get_IR(string Command, int address = 0)
 		if (Assign) {
 			IR += "1010";
 			IR += OneOp[Instruction];
-			IR += "xxxxxxxxxxx";
+			IR += "000000000000";
 		}
 	}
 	else if (Branch.count(Instruction))
@@ -218,18 +221,18 @@ void Get_IR(string Command, int address = 0)
 			IR += offset;
 		}
 	}
-	else if(Instruction == "DEFINE")
+	else if (Instruction == "DEFINE")
 	{
 		if (!Assign) {
 			ss >> Op1;
 			Variables[Op1] = Insturction_Iterator;
 		}
 	}
-	else if (Instruction[0] ==';') // for the comments
+	else if (Instruction[0] == ';') // for the comments
 	{
 		if (!Assign) {
-			Insturction_Iterator--; 
-			
+			Insturction_Iterator--;
+
 		}
 	}
 	else {
@@ -242,14 +245,14 @@ void Get_IR(string Command, int address = 0)
 	}
 }
 int main()
-{		
+{
 	init();
 
 	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
+	//freopen("output.txt", "w", stdout);
 	Assign = false;
 	int debugger = 0;
-	while(getline(cin, Command))
+	while (getline(cin, Command))
 	{
 		Adjust_command(Command);
 		if (Command.empty()) continue;
@@ -260,16 +263,16 @@ int main()
 		Insturction_Iterator++;
 	}
 	Assign = true;
-	for (int idx = 0; idx < Code.size();idx++) 
+	for (int idx = 0; idx < Code.size(); idx++)
 	{
 		stringstream ss;
 		IR.clear();
-		Get_IR(Code[idx],Address[idx]);
-		if(!IR.empty()) Output.push_back(IR);
-		if (!BIN.empty()) Output.push_back(BIN);
-		BIN.clear();
+		Get_IR(Code[idx], Address[idx]);
+		if (!IR.empty()) Output.push_back(IR);
+		for (auto x : Fetch) Output.push_back(x);
+		Fetch.clear();
 	}
-	for (auto out : Output) 
+	for (auto out : Output)
 		cout << out << endl;
 	return 0;
 }

@@ -1,32 +1,5 @@
 vsim -gui work.control_unit
-# vsim 
-# Start time: 06:29:20 on Dec 20,2018
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
-# Loading ieee.math_real(body)
-# Loading work.control_unit(a_control_unit)
-# Loading work.myprocessor(a_myprocessor)
-# Loading work.decoder4x16(a_decoder4x16)
-# Loading work.ndff(a_ndff)
-# Loading work.dff(a_dff)
-# Loading work.mar(a_mar)
-# Loading work.mdr(a_mdr)
-# Loading work.flagreg(a_flagreg)
-# Loading work.real_ram(a_ram)
-# Loading work.tri_state(a_tri_state)
-# Loading work.alu(a_alu)
-# Loading work.parta(a_parta)
-# Loading work.my_nadder(a_my_nadder)
-# Loading work.my_adder(a_my_adder)
-# Loading work.partb(a_partb)
-# Loading work.partc(a_partc)
-# Loading work.partd(a_partd)
-# Loading work.mpc(a_mpc)
-# Loading work.real_rom(a_rom)
-# ** Warning: Design size of 14024 statements or 257 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
-# Expect performance to be quite adversely affected.
+
 add wave -position insertpoint  \
 sim:/control_unit/n \
 sim:/control_unit/clkNormal \
@@ -34,50 +7,35 @@ sim:/control_unit/clkRam \
 sim:/control_unit/busA \
 sim:/control_unit/busB \
 sim:/control_unit/busC \
-sim:/control_unit/rst \
-sim:/control_unit/external \
-sim:/control_unit/mpcRst \
-sim:/control_unit/romRead \
-sim:/control_unit/decoder_srcA_enable \
-sim:/control_unit/decoder_srcB_enable \
-sim:/control_unit/decoder_dist_enable \
 sim:/control_unit/aluCarryIn \
 sim:/control_unit/writeMem \
 sim:/control_unit/readMem \
-sim:/control_unit/decoder_srcA_selector \
-sim:/control_unit/decoder_srcB_selector \
-sim:/control_unit/decoder_dist_selector \
 sim:/control_unit/aluSelector \
-sim:/control_unit/srcA_R6Enable \
-sim:/control_unit/srcA_R7Enable \
-sim:/control_unit/srcA_TempXEnable \
-sim:/control_unit/srcA_TempYEnable \
-sim:/control_unit/srcA_MDRoutEnable \
-sim:/control_unit/srcA_IRoutEnable \
-sim:/control_unit/srcB_R6Enable \
-sim:/control_unit/srcB_R7Enable \
-sim:/control_unit/srcB_TempXEnable \
-sim:/control_unit/srcB_TempYEnable \
-sim:/control_unit/srcB_MDRoutEnable \
-sim:/control_unit/srcB_IRoutEnable \
-sim:/control_unit/R6InEnable \
-sim:/control_unit/R7InEnable \
 sim:/control_unit/IRinEnable \
-sim:/control_unit/TempXinEnable \
-sim:/control_unit/TempYinEnable \
 sim:/control_unit/flagRegOut \
 sim:/control_unit/IR \
-sim:/control_unit/MDRinEnable \
-sim:/control_unit/MARinEnable \
 sim:/control_unit/flagRegEnable \
-sim:/control_unit/isCarryInstruction \
-sim:/control_unit/externalAddress \
 sim:/control_unit/addressCW \
 sim:/control_unit/addressROM \
 sim:/control_unit/CW \
-sim:/control_unit/addInt
-force -freeze sim:/control_unit/clkNormal 0 0, 1 {50 ns} -r 100
-force -freeze sim:/control_unit/clkRam 1 0, 0 {50 ns} -r 100
+sim:/control_unit/myProcessorElGamed/RoOut \
+sim:/control_unit/myProcessorElGamed/R1Out \
+sim:/control_unit/myProcessorElGamed/R2Out \
+sim:/control_unit/myProcessorElGamed/R3Out \
+sim:/control_unit/myProcessorElGamed/R4Out \
+sim:/control_unit/myProcessorElGamed/R5Out \
+sim:/control_unit/myProcessorElGamed/R6Out \
+sim:/control_unit/myProcessorElGamed/R7Out \
+sim:/control_unit/myProcessorElGamed/MDRout \
+sim:/control_unit/myProcessorElGamed/tempRegXOut \
+sim:/control_unit/myProcessorElGamed/tempRegYOut \
+sim:/control_unit/myProcessorElGamed/MAROut \
+sim:/control_unit/addInt \
+
+
+
+
+
 mem load -filltype value -filldata 0100000000000100000000100 -fillradix binary /control_unit/myRom/myROM(0)
 mem load -filltype value -filldata 0100000010000000000100010 -fillradix binary /control_unit/myRom/myROM(1)
 mem load -filltype value -filldata 0111000010100000000000000 -fillradix binary /control_unit/myRom/myROM(2)
@@ -228,28 +186,48 @@ mem load -filltype value -filldata 0110000000000010011101000 -fillradix binary /
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(147)
 mem load -filltype value -filldata 1000000010000000000000000 -fillradix binary /control_unit/myRom/myROM(148)
 mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(149)
-mem load -filltype value -filldata {1001001000000000 } -fillradix binary /control_unit/myProcessorElGamed/myRama/myRam(0)
-mem load -filltype value -filldata {1001001000000001 } -fillradix binary /control_unit/myProcessorElGamed/myRama/myRam(1)
-force -freeze sim:/control_unit/rst 4080 0
+mem load -filltype value -filldata 0101011000000000010000000 -fillradix binary /control_unit/myRom/myROM(150)
+mem load -filltype value -filldata 0000000000000000000000000 -fillradix binary /control_unit/myRom/myROM(151)
+
+mem load -filltype value -filldata 0000001111000101 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(0)
+mem load -filltype value -filldata 10 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(1)
+mem load -filltype value -filldata 1011000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(2)
+mem load -filltype value -filldata 0000001111000001 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(3)
+mem load -filltype value -filldata 10 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(4)
+mem load -filltype value -filldata 1011000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(5)
+mem load -filltype value -filldata 0000001111000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(6)
+mem load -filltype value -filldata 10 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(7)
+mem load -filltype value -filldata 1011000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(8)
+mem load -filltype value -filldata 0000001111000010 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(9)
+mem load -filltype value -filldata 10 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(10)
+mem load -filltype value -filldata 1011000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(11)
+mem load -filltype value -filldata 0000001111000011 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(12)
+mem load -filltype value -filldata 10 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(13)
+mem load -filltype value -filldata 1011000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(14)
+mem load -filltype value -filldata 0000001111000100 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(15)
+mem load -filltype value -filldata 10 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(16)
+mem load -filltype value -filldata 1011000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(17)
+mem load -filltype value -filldata 1010000000000000 -fillradix binary  /control_unit/myProcessorElGamed/myRama/myRAM(18)
+
+force -freeze sim:/control_unit/clkNormal 0 0, 1 {50 ps} -r 100
+force -freeze sim:/control_unit/clkRam 1 0, 0 {50 ps} -r 100
+
+
+force -freeze sim:/control_unit/rst FFFF 0
+force -freeze sim:/control_unit/mpcRst 1 0
+force -freeze sim:/control_unit/romRead 0 0
+run
+force -freeze sim:/control_unit/rst 0000 0
+run
 force -freeze sim:/control_unit/mpcRst 1 0
 force -freeze sim:/control_unit/romRead 1 0
 run
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /control_unit/myRom
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /control_unit/myProcessorElGamed/myRama
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /control_unit
-force -freeze sim:/control_unit/rst 0000 0
+force -freeze sim:/control_unit/mpcRst 1 0
+force -freeze sim:/control_unit/romRead 1 0
+run
 force -freeze sim:/control_unit/mpcRst 0 0
 run
-run
-run
-run
-run
-run
-run
-run
+
 run
 run
 run

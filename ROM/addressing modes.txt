@@ -202,5 +202,9 @@ YoutA DecA RdistIn
 YoutA DecA MDRin write WMFC
 
 # BR Label
-IRoutA TransferA PCIN
+PCOUTB IRoutA ADD PCIN
+
+# CMP
+XoutA YoutB SUB
+
 
